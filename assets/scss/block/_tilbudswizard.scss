@@ -1,0 +1,35 @@
+
+
+.tilbudswizard {
+	display: block;
+	position: relative;
+	width: 100%;
+	background: $color_white;
+}
+
+.tilbudswizard,
+.tilbudswizard__header,
+.tilbudswizard__logo,
+.tilbudswizard__body {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.tilbudswizard__header {
+	display: block;
+	width: 100%;
+	background-color: $color_white;
+	border-bottom: 1px solid $color_black;
+}
+
+.tilbudswizard__logo {
+	display: block;
+	margin: 20px 0;
+}
+
+.tilbudswizard__body {
+	dispaly: block;
+	width: 100%;
+	background-color: $color_white;
+}

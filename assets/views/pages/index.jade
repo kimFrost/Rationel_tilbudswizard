@@ -1,0 +1,52 @@
+extends ../master
+
+block append head
+
+block append body
+
+block append content
+
+
+	div.container.tilbudswizard__header
+		div.container__content
+			div.container__inner
+				a.tilbudswizard__logo
+					img(src="/img/graphic/logo.png", alt="Rationel")
+
+	div.tilbudswizard__body
+
+		div.container.step.step--map(data-ng-class="{'step--active': tilbudswizardctrl.checkstep(1)}")
+			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(1)")
+				div.container__content
+					div.container__inner Step 1 Header
+			div.step__body
+				div.container__content
+					div.container__inner
+						div.step_bodyinner
+							div.step__headline Step 1 Body
+							form.form.form--center
+								input.form__input(placeholder="Indtast dit postnr")
+
+
+
+		div.container.step(data-ng-class="{'step--active': tilbudswizardctrl.checkstep(2)}")
+			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(2)")
+				div.container__content
+					div.container__inner Step 2 Header
+			div.step__body
+				div.container__content
+					div.container__inner
+						div.step_bodyinner
+							div.step__headline Step 2 Body
+							include ../blocks/lorem
+
+		div.container.step(data-ng-class="{'step--active': tilbudswizardctrl.checkstep(3)}")
+			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(3)")
+				div.container__content
+					div.container__inner Step 3 Header
+			div.step__body
+				div.container__content
+					div.container__inner
+						div.step_bodyinner
+							div.step__headline Step 3 Body
+							include ../blocks/lorem

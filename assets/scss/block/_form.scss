@@ -1,0 +1,28 @@
+
+
+
+
+.form {
+	display: block;
+	width: 100%;
+}
+
+.form,
+.form__input {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.form--center {
+	text-align: center;
+	.form__input {
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+.form__input {
+	display: block;
+	padding: 5px;
+}

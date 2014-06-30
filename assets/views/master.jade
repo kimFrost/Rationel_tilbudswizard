@@ -1,0 +1,19 @@
+doctype html
+html(data-ng-app="tilbudswizard")
+	head
+		title Rationel Tilbudswizard
+		meta(charset="UTF-8")
+		//meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1 user-scalable=no")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(rel='stylesheet', href='./css/tilbudswizard.css')
+		// Main app js
+		script(src='./scripts/head.js')
+		block head
+	body
+		block body
+		section.tilbudswizard(data-ng-controller="Tilbudswizard")
+			block glovalVars
+
+			block content
+
+		script(src='./scripts/tilbudswizard.js')

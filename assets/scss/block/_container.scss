@@ -1,0 +1,52 @@
+
+$__blockName: 'container';
+$__gutterWidth: 20px;
+
+
+.container {
+	width: 100%;
+	//padding-right: $__gutterWidth;
+	//padding-left: $__gutterWidth;
+	&:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+}
+
+.container,
+.container__content,
+.container__inner {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.container__content {
+	width: 100%;
+	margin: 0 auto;
+	padding-right: $__gutterWidth;
+	padding-left: $__gutterWidth;
+	@include mediaQueries(desktop){
+		width: $contentWidth;
+		padding-left: 0;
+		padding-right: 0;
+	};
+	@include mediaQueries(tablet){
+		width: $contentWidth;
+		padding-left: 0;
+		padding-right: 0;
+	};
+}
+
+.container__inner {
+	position: relative;
+	width: 100%;
+
+	&:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+}
+

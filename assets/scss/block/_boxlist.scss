@@ -1,0 +1,52 @@
+
+
+
+
+.boxlist {
+	display: block;
+	width: 100%;
+}
+
+.boxlist,
+.boxlist__box,
+.boxlist__innerbox {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.boxlist--line2 {
+
+	.boxlist__box {
+
+	}
+}
+
+.boxlist--line3 {
+
+	.boxlist__box {
+
+	}
+}
+
+.boxlist__box {
+	display: block;
+	float: left;
+	width: 50%;
+	background-color: $color_black;
+	padding-right: 50px;
+	&:first-child {
+
+	}
+	&:last-child {
+
+	}
+}
+
+.boxlist__innerbox {
+	display: block;
+	width: 100%;
+	min-height: 100%;
+	position: relative;
+	background-color: $color_white;
+}

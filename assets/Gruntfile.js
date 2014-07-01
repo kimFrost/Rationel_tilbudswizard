@@ -25,7 +25,11 @@ module.exports = function (grunt) {
 			tilbudswizard: {
 				src: [
 					'js/angular.tilbudswizard.js',
-					'js/controllers/angular.controller.tilbudswizard.js'
+					'js/controllers/angular.controller.tilbudswizard.js',
+					'js/controllers/angular.controller.step.js',
+					'js/controllers/angular.controller.retailer.js',
+					'js/controllers/angular.controller.product.js',
+					'js/controllers/angular.controller.contact.js'
 				],
 				dest: '../scripts/tilbudswizard.js'
 			}

@@ -1,0 +1,100 @@
+
+$__blockName: 'inlinelist';
+
+@include block($__blockName) {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	position: relative;
+
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+	-webkit-box-align: center;
+	-webkit-flex-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+
+	&:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+	@include m(aligntop) {
+		display: block;
+	}
+	@include m(aligncenter) {
+		-webkit-box-pack: center;
+		-moz-box-pack: center;
+		-ms-flex-pack: center;
+		-webkit-justify-content: center;
+		justify-content: center;
+	}
+	@include m(tabletbreak) {
+		@include mediaQueries(tablet){
+			display: block;
+			@include e(item) {
+				clear: both;
+				width: 100%;
+				margin-left: 0px;
+				margin-top: 10px;
+			}
+		}
+	}
+	@include m(mobilebreak) {
+		@include mediaQueries(mobile){
+			display: block;
+			@include e(item) {
+				clear: both;
+				width: 100%;
+				margin-left: 0;
+				margin-top: 10px;
+			}
+		}
+	}
+	@include e(list) {
+		display: block;
+	}
+	@include e(item) {
+		display: block;
+		padding: 0;
+		float: left;
+		margin-left: 20px;
+		&:first-child {
+			margin-left: 0;
+			margin-top: 0;
+		}
+	}
+}
+
+/*
+@include block($__blockName) {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: block;
+	&:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+	@include e(item) {
+		display: block;
+		margin: 0;
+		padding: 0;
+		float: left;
+		& + & {
+			margin-left: 5px;
+		}
+		&:after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+	}
+}
+*/

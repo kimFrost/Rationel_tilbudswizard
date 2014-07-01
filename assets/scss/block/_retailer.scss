@@ -1,0 +1,51 @@
+
+
+
+
+.retailer {
+	display: block;
+	width: 100%;
+}
+
+.retailer {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.retailer__card {
+	display: block;
+	color: $color_textblack;
+	background-color: $color_white;
+	padding: 10px;
+	width: 100%;
+	cursor: pointer;
+	&:hover {
+		background-color: darken($color_white, 5%);
+	}
+	&:active {
+		background-color: darken($color_white, 10%);
+	}
+}
+.retailer__card--selected {
+	background-color: $color_black;
+	color: $color_textwhite;
+	&:hover {
+		background-color: lighten($color_black, 10%);
+	}
+	&:active {
+		background-color: lighten($color_black, 5%);
+	}
+}
+
+.retailer__cardtitle {
+	width: 100%;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+.retailer__paragraph {
+	width: 100%;
+	margin: 0;
+	margin-bottom: 5px;
+}

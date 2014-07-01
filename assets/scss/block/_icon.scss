@@ -1,0 +1,86 @@
+
+$__blockName: 'icon';
+
+$__iconMap: (
+	glass: "\f000",
+	circle: "\f111",
+	arrowup: "\f062",
+	arrowright: "\f061",
+	arrowbottom: "\f063",
+	arrowleft: "\f060",
+	chevroncircledown: "\f13a",
+	chevroncircleleft: "\f137",
+	chevroncircleright: "\f138",
+	chevroncircleup: "\f139",
+	chevrondown: "\f078",
+	chevronleft: "\f053",
+	chevronright: "\f054",
+	chevronup: "\f077",
+	check: "\f00c",
+	checkcircle: "\f058",
+	timescircle: "\f057",
+	question: "\f128",
+	questionCircle: "\f059",
+	circleONotch: "\f1ce"
+);
+
+
+
+/*CACTUSPILOT:OPEN*/
+
+/*MODULE:OPEN*//*
+#{$__blockName}
+*//*MODULE:CLOSE*/
+
+/*DESC:OPEN*//*
+This is a "#{$__blockName}" module.
+*//*DESC:CLOSE*/
+
+/*MARKUP:OPEN*//*
+<div class="#{$__blockName}">
+	<div class="icon__item"></div>
+</div>
+*//*MARKUP:CLOSE*/
+
+/*CACTUSPILOT:CLOSE*/
+
+
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('../fonts/fontawesome-webfont.eot?');
+	src: url('../fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/fontawesome-webfont.woff?') format('woff'),
+	url('../fonts/fontawesome-webfont.ttf?') format('truetype'),
+	url('../fonts/fontawesome-webfont.svg?#fontawesomeregular') format('svg');
+	//src: url('#{$fa-font-path}/FontAwesome.otf') format('opentype'); // used when developing fonts
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+@include block($__blockName) {
+	@at-root [class^="icon"] {
+		display: inline-block;
+		font-family: FontAwesome;
+		font-style: normal;
+		font-weight: normal;
+		line-height: 1;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		&:before {
+			display: block;
+			font-family: inherit;
+			font-weight: inherit;
+		}
+	}
+	@each $key, $content in $__iconMap {
+		@include m($key) {
+			&:before {
+				display: block;
+				content: $content;
+			}
+		}
+	}
+}
+
+

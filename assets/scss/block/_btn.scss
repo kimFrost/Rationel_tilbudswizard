@@ -1,0 +1,27 @@
+
+
+
+
+$__btnCornerRadius: 20px;
+
+
+.btn {
+	@include noUserSelect();
+	@include border-radius($__btnCornerRadius, $__btnCornerRadius, $__btnCornerRadius, $__btnCornerRadius);
+	color: $color_textwhite;
+	background-color: $color_textblack;
+	padding: 0px $__btnCornerRadius;
+	//height: $__btnHeight;
+	//line-height: $__btnHeight;
+	font-weight: bold;
+	border: none;
+	border-top: 1px solid lighten($color_textblack, 10%);
+	border-bottom: 1px solid darken($color_textblack, 15%);
+	cursor: pointer;
+	display: inline-block;
+	text-transform: uppercase;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	outline: 0;
+}

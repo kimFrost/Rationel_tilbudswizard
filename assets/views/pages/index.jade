@@ -15,38 +15,104 @@ block append content
 
 	div.tilbudswizard__body
 
-		div.container.step.step--map(data-ng-class="{'step--active': tilbudswizardctrl.checkstep(1)}")
-			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(1)")
+
+
+		div.container.step.retailer.step--map(data-ng-controller="RetailerCtrl", data-ng-class="{'step--active': tilbudswizardctrl.checkstep(0)}")
+			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(0)")
 				div.container__content
-					div.container__inner Step 1 Header
+					div.container__inner 1. Vælg forhandler
 			div.step__body
 				div.container__content
 					div.container__inner
-						div.step_bodyinner
-							div.step__headline Step 1 Body
+						div.step_bodyinner(data-ng-show="retailerctrl.states.showsearch")
+							div.step__headline 1. Find Rationel forhandler nær dig
 							form.form.form--center
 								input.form__input(placeholder="Indtast dit postnr")
+						div.step_bodyinner(data-ng-show="retailerctrl.states.showresults")
+							div.step__headline 1. Vælg den Rationel forhandler tilbuddet skal sendes til.
+							div.cluster
+								div.cluster__list
+									div.cluster__item(data-ng-repeat="retailer in retailerctrl.retailers")
+										div.cluster__inner
+											div.retailer__card(data-ng-click="tilbudswizardctrl.setRetailer(retailer.id)", data-ng-class="{'retailer__card--selected': tilbudswizardctrl.checkRetailer(retailer.id)}")
+												h2.retailer__cardtitle(data-ng-bind="retailer.title")
+												p.retailer__paragraph(data-ng-bind="retailer.adress")
+												p.retailer__paragraph {{retailer.zip}} {{retailer.city}}
 
 
 
-		div.container.step(data-ng-class="{'step--active': tilbudswizardctrl.checkstep(2)}")
+
+		div.container.product.step(data-ng-controller="ProductCtrl", data-ng-class="{'step--active': tilbudswizardctrl.checkstep(1)}")
+			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(1)")
+				div.container__content
+					div.container__inner 2. Vælg din byggestil
+			div.step__body
+				div.container__content
+					div.container__inner
+						div.step_bodyinner
+							div.step__headline 2. Vælg byggestilen på dit hus
+							div.cluster.cluster--line2
+								div.cluster__list
+									div.cluster__item(data-ng-repeat="category in productctrl.categories")
+										div.cluster__inner
+											div.product__card(data-ng-click="tilbudswizardctrl.setCategory(category.id)", data-ng-class="{'product__card--selected': tilbudswizardctrl.checkCategory(category.id)}")
+												h2.product__cardtitle(data-ng-bind="category.title")
+
+
+
+
+		div.container.product.step(data-ng-controller="ProductCtrl", data-ng-class="{'step--active': tilbudswizardctrl.checkstep(2)}")
 			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(2)")
 				div.container__content
-					div.container__inner Step 2 Header
+					div.container__inner 3. Tilføj vinduer & døre
 			div.step__body
 				div.container__content
 					div.container__inner
 						div.step_bodyinner
-							div.step__headline Step 2 Body
-							include ../blocks/lorem
+							div.step__headline 3. Tilføj vinduer & døre (Products)
 
-		div.container.step(data-ng-class="{'step--active': tilbudswizardctrl.checkstep(3)}")
+							div.product__content
+								div.product__aside
+									div.product__asideitem Upload filer
+									div.product__asideitem
+										a.btn Videre
+									div.product__asideitem Værelse x
+									div.product__asideitem Køkken x
+									div.product__asideitem Badeværelse x
+								div.product__main
+									div.product__productlist
+										div.product__item
+											div.product__inner 1
+										div.product__item
+											div.product__inner 2
+										div.product__item
+											div.product__inner 3
+										div.product__item
+											div.product__inner 4
+										div.product__item
+											div.product__inner 5
+										div.product__item
+											div.product__inner 6
+										div.product__item
+											div.product__inner 7
+										div.product__item
+											div.product__inner 8
+
+						div.step_bodyinner
+							div.step__headline 3. Tilføj vinduer & døre (Upload)
+
+
+
+
+		div.container.contact.step(data-ng-controller="ContactCtrl", data-ng-class="{'step--active': tilbudswizardctrl.checkstep(3)}")
 			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(3)")
 				div.container__content
-					div.container__inner Step 3 Header
+					div.container__inner 4. Personlige oplysninger
 			div.step__body
 				div.container__content
 					div.container__inner
 						div.step_bodyinner
-							div.step__headline Step 3 Body
-							include ../blocks/lorem
+							div.step__headline 4. Udfyld personlige oplysninger.
+
+						div.step_bodyinner
+							div.step__headline 4. Kvittering

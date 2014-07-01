@@ -1,0 +1,80 @@
+
+/* Checker module
+---------------------------------------------------------------*/
+
+$_blockName: 'checker';
+
+$checkerBoxWidth: 30px;
+$checkerBoxHeight: 30px;
+
+
+@include block($_blockName) {
+	display: inline-block;
+	position: relative;
+	@include e(box) {
+		position: absolute;
+		width: $checkerBoxWidth;
+		height: $checkerBoxHeight;
+		left: 0;
+		top: 50%;
+		margin-top: -($checkerBoxWidth / 2);
+		input[type="checkbox"] {
+			@include noUserSelect();
+			@include fill();
+			display: block !important;
+			padding: 0 !important;
+			margin: 0 !important;
+			z-index: 10 !important;
+			border: none !important;
+			background: none !important;
+			width: $checkerBoxWidth !important;
+			height: $checkerBoxHeight !important;
+			outline: 0;
+			appearance: none;
+			-moz-appearance: none;
+			-webkit-appearance: none;
+			&.ng-dirty {
+				& + .checker__ui,
+				& ~ .checker__ui {
+					//border-color: $color_babyblue;
+					&:after {
+
+					}
+				}
+			}
+			&:checked {
+				& + .checker__ui,
+				& ~ .checker__ui {
+					//border-color: $color_grey;
+					&:after {
+						content: "";
+						content: "\02713";
+						position: absolute;
+						width: $checkerBoxWidth;
+						height: $checkerBoxHeight;
+						//background-image: url(/img/icon_checked.png);
+						background-position: center center;
+						background-repeat: no-repeat;
+						line-height: $checkerBoxHeight;
+						text-align: center;
+					}
+				}
+			}
+		}
+	}
+	@include e(ui) {
+		@include noUserSelect();
+		@include fill();
+		background-color: $color_lagoonblue;
+		color: $color_white;
+		z-index: 5;
+	}
+	@include e(text) {
+		@include fontSize(alpha);
+		padding-left: $checkerBoxWidth + 5px;
+		//color: blue;
+		& > a {
+			text-decoration: underline;
+		}
+	}
+}

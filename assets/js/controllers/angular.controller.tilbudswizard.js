@@ -11,6 +11,10 @@
 			activeStep: 2,
 			activeRetailer: "",
 			activeCategory: "",
+			basket: {
+				items: [],
+				states: {}
+			},
 			steps:[
 				{
 					id: 0,

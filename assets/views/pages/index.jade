@@ -76,31 +76,36 @@ block append content
 									div.product__asideitem Upload filer
 									div.product__asideitem
 										a.btn Videre
-									div.product__asideitem Værelse x
-									div.product__asideitem Køkken x
-									div.product__asideitem Badeværelse x
+									div.product__asideitem(data-ng-repeat="basketitem in tilbudswizardctrl.basket.items", data-ng-bind="basketitem.title")
+
 								div.product__main
 									div.product__productlist
-										div.product__item
-											div.product__inner 1
-										div.product__item
-											div.product__inner 2
-										div.product__item
-											div.product__inner 3
-										div.product__item
-											div.product__inner 4
-										div.product__item
-											div.product__inner 5
-										div.product__item
-											div.product__inner 6
-										div.product__item
-											div.product__inner 7
-										div.product__item
-											div.product__inner 8
+										div.product__item(data-ng-repeat="productline in productctrl.productlines")
+											div.product__inner(data-ng-bind="productline.id", data-ng-click="productctrl.setProductLine(productline.id)")
+
+									div.product__productlist
+										div.product__item(data-ng-repeat="product in productctrl.shownProducts")
+											div.product__inner(data-ng-bind="product.id")
+
+									form.form(name="productForm")
+										input.form__input(type="text", placeholder="Beskrivende navn")
+										select.form__select
+											option 1
+											option 2
+											option 3
+										input.form__input(type="text", placeholder="Bredde")
+										input.form__input(type="text", placeholder="Længde")
+
+										input(type="checkbox")
+										span Med sprosser?
+										a + Tilføj
 
 						div.step_bodyinner
 							div.step__headline 3. Tilføj vinduer & døre (Upload)
-
+								form.form(name="productFilesForm")
+									input.form__file(type="file")
+									input.form__file(type="file")
+									input.form__file(type="file")
 
 
 
@@ -113,6 +118,24 @@ block append content
 					div.container__inner
 						div.step_bodyinner
 							div.step__headline 4. Udfyld personlige oplysninger.
+							form.form(name="contactform")
+								input.form__input(type="text" placeholder="Navn")
+								input.form__input(type="text" placeholder="Adresse")
+								input.form__input(type="text" placeholder="Postnummer")
+								input.form__input(type="text" placeholder="By")
+								input.form__input(type="email" placeholder="E-mail")
+								input.form__input(type="number" placeholder="Telefonnr")
+
+								p Hvilket materiale ønsker du tilbud på?
+
+								input(type="checkbox")
+								input(type="checkbox")
+
+								textarea.form__textarea(placeholder="Øvrige oplysninger")
+
+								input.btn(type="submit", value="Bestil tilbud")
+
+
 
 						div.step_bodyinner
 							div.step__headline 4. Kvittering

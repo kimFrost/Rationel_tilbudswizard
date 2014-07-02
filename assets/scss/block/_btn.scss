@@ -24,4 +24,10 @@ $__btnCornerRadius: 20px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	outline: 0;
+	&:hover {
+		background-color: lighten($color_textblack, 25%);
+	}
+	&:active {
+		background-color: lighten($color_textblack, 15%);
+	}
 }

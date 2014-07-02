@@ -1,14 +1,17 @@
 
 
 
-
 .form {
 	display: block;
 	width: 100%;
 }
 
 .form,
-.form__input {
+.form__input,
+.form__textarea,
+.form__select,
+.form__option,
+.form__file {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -25,4 +28,29 @@
 .form__input {
 	display: block;
 	padding: 5px;
+	width: 100%;
+}
+
+.form__textarea {
+	display: block;
+	padding: 5px;
+	width: 100%;
+}
+
+.form__select {
+	display: block;
+	padding: 5px;
+	width: 100%;
+}
+
+.form__option {
+	display: block;
+	padding: 5px;
+	width: 100%;
+}
+
+.form__file {
+	display: block;
+	padding: 5px;
+	width: 100%;
 }

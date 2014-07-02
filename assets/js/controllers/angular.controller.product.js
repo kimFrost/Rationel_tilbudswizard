@@ -15,6 +15,7 @@
 			products: [],
 			shownProducts: [],
 			activeProductLine: "",
+			activeProduct: "",
 			states: {
 				showproductview: true,
 				showupload: false
@@ -68,6 +69,11 @@
 			if (id != undefined) {
 				$scope.productctrl.activeProductLine = id;
 				$scope.productctrl.updateProducts();
+			}
+		};
+		$scope.productctrl.setProduct = function(id) {
+			if (id != undefined) {
+				$scope.productctrl.activeProduct = id;
 			}
 		};
 		$scope.productctrl.updateProducts = function(id) {

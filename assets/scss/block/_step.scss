@@ -1,12 +1,28 @@
 
 
-$stepHeaderHeight: 40px;
+$stepHeaderHeight: 80px;
 
 
 .step {
-	background-color: red;
+	background-color: $color_white;
 	overflow: hidden;
 	position: relative;
+	&:nth-child(1) {
+		background-color: $color_deepsea;
+		color: $color_textwhite;
+	}
+	&:nth-child(2) {
+		background-color: $color_coldsea;
+		color: $color_textwhite;
+	}
+	&:nth-child(3) {
+		background-color: $color_navyocean;
+		color: $color_textwhite;
+	}
+	&:nth-child(4) {
+		background-color: $color_greysky;
+		color: $color_textwhite;
+	}
 }
 
 .step,
@@ -20,28 +36,41 @@ $stepHeaderHeight: 40px;
 }
 
 .step--active {
-	background-color: greenyellow;
+	//background-color: greenyellow;
 	.step__header {
 		height: 0px;
+		padding: 0;
 	}
 	.step__body {
 		max-height: 1000px;
 	}
+	&:nth-child(1) {
+
+	}
+	&:nth-child(2) {
+
+	}
+	&:nth-child(3) {
+
+	}
+	&:nth-child(4) {
+
+	}
 }
 .step--map {
 	.step__body {
-		background-image: url(/img/graphic/map_background_small.jpg);
-		//background-color: green;
+		background-image: url(/img/graphic/map_background_large.jpg);
 	}
 }
 
 .step__header {
-	@include transition(height 700ms ease);
+	@include transition(all 700ms ease);
 	width: 100%;
 	display: block;
 	overflow: hidden;
 	height: $stepHeaderHeight;
-	line-height: $stepHeaderHeight;
+	padding: 15px 0;
+	//line-height: $stepHeaderHeight;
 	z-index: 20;
 	cursor: pointer;
 }
@@ -55,6 +84,8 @@ $stepHeaderHeight: 40px;
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: cover;
+	background-color: $color_white;
+	color: $color_textblack;
 }
 
 .step_bodyinner {

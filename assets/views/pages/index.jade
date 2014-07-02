@@ -20,7 +20,11 @@ block append content
 		div.container.step.retailer.step--map(data-ng-controller="RetailerCtrl", data-ng-class="{'step--active': tilbudswizardctrl.checkstep(0)}")
 			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(0)")
 				div.container__content
-					div.container__inner 1. Vælg forhandler
+					div.container__inner
+						div.headline
+							div.headline__line1 1. Find Rationel
+							div.headline__line2 forhandler
+
 			div.step__body
 				div.container__content
 					div.container__inner
@@ -45,7 +49,10 @@ block append content
 		div.container.product.step(data-ng-controller="ProductCtrl", data-ng-class="{'step--active': tilbudswizardctrl.checkstep(1)}")
 			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(1)")
 				div.container__content
-					div.container__inner 2. Vælg din byggestil
+					div.container__inner
+						div.headline
+							div.headline__line1 2. Vælg din
+							div.headline__line2 byggestil
 			div.step__body
 				div.container__content
 					div.container__inner
@@ -64,7 +71,10 @@ block append content
 		div.container.product.step(data-ng-controller="ProductCtrl", data-ng-class="{'step--active': tilbudswizardctrl.checkstep(2)}")
 			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(2)")
 				div.container__content
-					div.container__inner 3. Tilføj vinduer & døre
+					div.container__inner
+						div.headline
+							div.headline__line1 3. Tilføj
+							div.headline__line2 vinduer & døre
 			div.step__body
 				div.container__content
 					div.container__inner
@@ -80,12 +90,12 @@ block append content
 
 								div.product__main
 									div.product__productlist
-										div.product__item(data-ng-repeat="productline in productctrl.productlines")
+										div.product__item(data-ng-repeat="productline in productctrl.productlines", data-ng-class="{'product__item--active': productline.id === productctrl.activeProductLine}")
 											div.product__inner(data-ng-bind="productline.id", data-ng-click="productctrl.setProductLine(productline.id)")
 
 									div.product__productlist
-										div.product__item(data-ng-repeat="product in productctrl.shownProducts")
-											div.product__inner(data-ng-bind="product.id")
+										div.product__item(data-ng-repeat="product in productctrl.shownProducts", data-ng-class="{'product__item--active': product.id === productctrl.activeProduct}")
+											div.product__inner(data-ng-bind="product.id", data-ng-click="productctrl.setProduct(product.id)")
 
 									form.form(name="productForm")
 										input.form__input(type="text", placeholder="Beskrivende navn")
@@ -93,6 +103,8 @@ block append content
 											option 1
 											option 2
 											option 3
+											option 4
+											option 5
 										input.form__input(type="text", placeholder="Bredde")
 										input.form__input(type="text", placeholder="Længde")
 
@@ -112,7 +124,10 @@ block append content
 		div.container.contact.step(data-ng-controller="ContactCtrl", data-ng-class="{'step--active': tilbudswizardctrl.checkstep(3)}")
 			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(3)")
 				div.container__content
-					div.container__inner 4. Personlige oplysninger
+					div.container__inner
+						div.headline
+							div.headline__line1 4. Personlige
+							div.headline__line2 oplysninger
 			div.step__body
 				div.container__content
 					div.container__inner
@@ -139,3 +154,12 @@ block append content
 
 						div.step_bodyinner
 							div.step__headline 4. Kvittering
+
+
+
+	div.container.tilbudswizard__footer
+		div.container__content
+			div.container__inner
+				div.grid.grid--8 1
+				div.grid.grid--8 2
+				div.grid.grid--8 3

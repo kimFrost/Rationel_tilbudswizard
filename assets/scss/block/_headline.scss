@@ -1,0 +1,31 @@
+
+
+
+
+
+
+.headline {
+	display: block;
+	width: 100%;
+	text-transform: uppercase;
+}
+
+.headline,
+.headline__line1,
+.headline__line2 {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.headline__line1 {
+	display: block;
+	width: 100%;
+	font-family: $font_eurostilleCon;
+}
+
+.headline__line2 {
+	display: block;
+	width: 100%;
+	font-family: $font_eurostilleBold;
+}

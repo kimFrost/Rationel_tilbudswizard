@@ -112,6 +112,14 @@ $productItemPerLine: 6;
 	}
 }
 
+.product__item--active {
+
+}
+
+.product__item--active .product__inner{
+	background-color: #adff2f;
+}
+
 .product__inner {
 	width: 100%;
 	display: block;

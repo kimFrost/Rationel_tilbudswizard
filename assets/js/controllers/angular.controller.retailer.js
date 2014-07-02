@@ -13,7 +13,7 @@
 			retailers: [],
 			states: {
 				showsearch: true,
-				showresults: true
+				showresults: false
 			},
 			css: {}
 		};

@@ -10,7 +10,8 @@
 .tilbudswizard,
 .tilbudswizard__header,
 .tilbudswizard__logo,
-.tilbudswizard__body {
+.tilbudswizard__body,
+.tilbudswizard__footer {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -32,4 +33,11 @@
 	dispaly: block;
 	width: 100%;
 	background-color: $color_white;
+}
+
+.tilbudswizard__footer {
+	dispaly: block;
+	width: 100%;
+	background-color: $color_white;
+	padding: 30px 0;
 }

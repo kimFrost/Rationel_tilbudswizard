@@ -2,21 +2,18 @@
 
 
 
-$__btnCornerRadius: 20px;
+$__btnHeight: 30px;
 
 
 .btn {
+	@include fontSize(alpha, 0);
 	@include noUserSelect();
-	@include border-radius($__btnCornerRadius, $__btnCornerRadius, $__btnCornerRadius, $__btnCornerRadius);
 	color: $color_textwhite;
-	background-color: $color_textblack;
-	padding: 0px $__btnCornerRadius;
-	//height: $__btnHeight;
-	//line-height: $__btnHeight;
+	background-color: $color_deepsea;
+	height: $__btnHeight;
+	line-height: $__btnHeight;
 	font-weight: bold;
 	border: none;
-	border-top: 1px solid lighten($color_textblack, 10%);
-	border-bottom: 1px solid darken($color_textblack, 15%);
 	cursor: pointer;
 	display: inline-block;
 	text-transform: uppercase;
@@ -24,10 +21,92 @@ $__btnCornerRadius: 20px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	outline: 0;
+	padding: 0 5px;
+	text-transform: uppercase;
+	position: relative;
 	&:hover {
-		background-color: lighten($color_textblack, 25%);
+		background-color: lighten($color_deepsea, 10%);
 	}
 	&:active {
-		background-color: lighten($color_textblack, 15%);
+		background-color: darken($color_deepsea, 10%);
 	}
+}
+
+.btn,
+.btn__headline {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.btn--selected {
+	background-color: $color_coralsea;
+	color: $color_textwhite;
+	&:hover {
+		background-color: lighten($color_coralsea, 10%);
+	}
+	&:active {
+		background-color: darken($color_coralsea, 10%);
+	}
+}
+
+.btn--card {
+	height: auto;
+	line-height: normal;
+	padding: 10px;
+	width: 100%;
+}
+
+.btn--dynamic {
+	height: auto;
+	line-height: normal;
+	padding: 5px;
+}
+
+.btn--stretch {
+	width: 100%;
+}
+
+.btn--leftbottomarrow {
+	padding-bottom: 35px;
+	.btn__icon {
+		display: block;
+		bottom: 10px;
+		left: 10px;
+	}
+}
+
+.btn--righttoparrow {
+	padding-right: 35px;
+	.btn__icon {
+		display: block;
+		top: 10px;
+		right: 5px;
+	}
+}
+
+.btn--rightbottomarrow {
+	padding-right: 35px;
+	.btn__icon {
+		display: block;
+		bottom: 10px;
+		right: 5px;
+	}
+}
+
+.btn--productcard {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	@include mediaQueries(desktop) {
+		width: 50%;
+	}
+}
+
+.btn__icon {
+	display: none;
+	position: absolute;
+	font-size: 12px;
+	padding: 3px;
+	font-family: $font_eurostilleBold;
 }

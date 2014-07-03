@@ -2,12 +2,12 @@
 
 
 
-
-
 .headline {
+	@include fontSize(delta,0);
 	display: block;
 	width: 100%;
 	text-transform: uppercase;
+	margin-bottom: 10px;
 }
 
 .headline,
@@ -18,14 +18,55 @@
 	-webkit-box-sizing: border-box;
 }
 
+.headline--large {
+	@include fontSize(theta,0);
+	margin-bottom: 30px;
+	.headline__line1 {
+		line-height: returnFontSize(theta);
+	}
+	.headline__line2 {
+		line-height: returnFontSize(theta);
+	}
+}
+
+.headline--card {
+	@include fontSize(beta, 0);
+	margin-bottom: 5px;
+	.headline__line1 {
+		@include fontSize(zeta, 1);
+		font-family: $font_eurostilleBold;
+	}
+	.headline__line2 {
+		@include fontSize(beta, 1);
+		font-family: $font_eurostilleDemi;
+	}
+}
+
+.headline--footer {
+	margin-bottom: 20px;
+	text-align: center;
+	.headline__line1 {
+		@include fontSize(iota, 1);
+		font-family: $font_eurostilleBold;
+		color: $color_coralsea;
+	}
+	.headline__line2 {
+		@include fontSize(gamma, 1.2);
+		font-family: $font_eurostilleRegular;
+	}
+}
+
 .headline__line1 {
+	line-height: returnFontSize(delta);
 	display: block;
 	width: 100%;
 	font-family: $font_eurostilleCon;
 }
 
 .headline__line2 {
+	line-height: returnFontSize(delta);
 	display: block;
 	width: 100%;
 	font-family: $font_eurostilleBold;
 }
+

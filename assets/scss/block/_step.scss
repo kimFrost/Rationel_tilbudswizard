@@ -1,6 +1,6 @@
 
 
-$stepHeaderHeight: 80px;
+$stepHeaderHeight: 62px;
 
 
 .step {
@@ -120,6 +120,13 @@ $stepHeaderHeight: 80px;
 	-webkit-justify-content: center;
 	justify-content: center;
 
+
+	@include mediaQueries(desktop) {
+		min-height: 500px;
+	}
+	@include mediaQueries(tablet) {
+		min-height: 400px;
+	}
 }
 
 .step__headline {

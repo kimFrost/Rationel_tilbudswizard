@@ -29,20 +29,40 @@ block append content
 				div.container__content
 					div.container__inner
 						div.step_bodyinner(data-ng-show="retailerctrl.states.showsearch")
-							div.step__headline 1. Find Rationel forhandler nær dig
-							form.form.form--center
-								input.form__input(placeholder="Indtast dit postnr")
-						div.step_bodyinner(data-ng-show="retailerctrl.states.showresults")
-							div.step__headline 1. Vælg den Rationel forhandler tilbuddet skal sendes til.
-							div.cluster
-								div.cluster__list
-									div.cluster__item(data-ng-repeat="retailer in retailerctrl.retailers")
-										div.cluster__inner
-											div.retailer__card(data-ng-click="tilbudswizardctrl.setRetailer(retailer.id)", data-ng-class="{'retailer__card--selected': tilbudswizardctrl.checkRetailer(retailer.id)}")
-												h2.retailer__cardtitle(data-ng-bind="retailer.title")
-												p.retailer__paragraph(data-ng-bind="retailer.adress")
-												p.retailer__paragraph {{retailer.zip}} {{retailer.city}}
+							div.retailer__searchbox
+								div.headline.headline--large
+									div.headline__line1 Find nærmeste
+									div.headline__line2 Forhandler
+								form.form.form--center
+									div.grid.grid--3
+									div.grid.grid--14.grid--spaceright
+										input.form__input(placeholder="Indtast dit postnr")
+									div.grid.grid--4
+										input.btn.btn--stretch(type="submit", value="søg")
+									div.grid.grid--3
 
+						div.step_bodyinner(data-ng-show="retailerctrl.states.showresults")
+							div.retailer__resultsbox
+								div.headline.headline--large
+									div.headline__line1 Hvor ønsker du at
+									div.headline__line2 Afhente dit tilbud?
+								div.cluster.cluster--height100
+									div.cluster__list
+										div.cluster__item(data-ng-repeat="retailer in retailerctrl.retailers")
+											div.cluster__inner
+												//div.retailer__card(data-ng-click="tilbudswizardctrl.setRetailer(retailer.id)", data-ng-class="{'retailer__card--selected': tilbudswizardctrl.checkRetailer(retailer.id)}")
+												div.btn.btn--card.btn--leftbottomarrow(data-ng-click="tilbudswizardctrl.setRetailer(retailer.id)", data-ng-class="{'btn--selected': tilbudswizardctrl.checkRetailer(retailer.id)}")
+													div.headline.headline--card
+														div.headline__line1(data-ng-bind="retailer.title")
+														div.headline__line2(data-ng-bind="retailer.adress")
+														div.headline__line2 {{retailer.zip}} {{retailer.city}}
+													div.btn__icon
+														span.icon.icon--chevronright.icon--square
+														span KLIK HER
+
+													//h2.retailer__cardtitle(data-ng-bind="retailer.title")
+													//p.retailer__paragraph(data-ng-bind="retailer.adress")
+													//p.retailer__paragraph {{retailer.zip}} {{retailer.city}}
 
 
 
@@ -57,13 +77,23 @@ block append content
 				div.container__content
 					div.container__inner
 						div.step_bodyinner
-							div.step__headline 2. Vælg byggestilen på dit hus
-							div.cluster.cluster--line2
-								div.cluster__list
-									div.cluster__item(data-ng-repeat="category in productctrl.categories")
-										div.cluster__inner
-											div.product__card(data-ng-click="tilbudswizardctrl.setCategory(category.id)", data-ng-class="{'product__card--selected': tilbudswizardctrl.checkCategory(category.id)}")
-												h2.product__cardtitle(data-ng-bind="category.title")
+							div.product__categorybox
+								div.headline.headline--large
+									div.headline__line1 Hvilken type bolig skal dine
+									div.headline__line2 Vinduer og døre passe til?
+								div.cluster.cluster--line2.cluster--height200.cluster--autoHeight
+									div.cluster__list
+										div.cluster__item.cluster__item--1x1(data-ng-repeat="category in productctrl.categories")
+											div.cluster__inner
+												div.product__card(data-ng-click="tilbudswizardctrl.setCategory(category.id)", data-ng-class="{'product__card--selected': tilbudswizardctrl.checkCategory(category.id)}")
+													div.product__cardimage
+														img(src="http://placehold.it/350x150")
+														div.btn.btn--card.btn--righttoparrow.btn--productcard(data-ng-class="{'btn--selected': tilbudswizardctrl.checkCategory(category.id)}")
+															div.headline.headline--card
+																div.headline__line1(data-ng-bind="category.title")
+																div.headline__line2(data-ng-bind="category.title")
+															div.btn__icon
+																span.icon.icon--chevronright.icon--square
 
 
 
@@ -78,46 +108,85 @@ block append content
 			div.step__body
 				div.container__content
 					div.container__inner
-						div.step_bodyinner
-							div.step__headline 3. Tilføj vinduer & døre (Products)
+						div.step_bodyinner(data-ng-show="productctrl.states.showproductview")
 
-							div.product__content
-								div.product__aside
-									div.product__asideitem Upload filer
+							div.product__productsbox
+
+								div.product__aside(data-ng-hide="tilbudswizardctrl.basket.states.showbasket")
 									div.product__asideitem
-										a.btn Videre
+										a.button.button--stretch
+											div.button__text Upload filer
+											div.button__icon
+												span.icon.icon--chevronright.icon--square
+
+								div.product__aside(data-ng-show="tilbudswizardctrl.basket.states.showbasket")
+									div.product__asideitem
+										a.button.button--stretch
+											div.button__text Videre
+											div.button__icon
+												span.icon.icon--chevronright.icon--square
+
 									div.product__asideitem(data-ng-repeat="basketitem in tilbudswizardctrl.basket.items", data-ng-bind="basketitem.title")
 
 								div.product__main
+									div.headline.headline--large
+										div.headline__line1 Vælg de vinduer og døre
+										div.headline__line2 du ønsker et tilbud på
+
 									div.product__productlist
 										div.product__item(data-ng-repeat="productline in productctrl.productlines", data-ng-class="{'product__item--active': productline.id === productctrl.activeProductLine}")
-											div.product__inner(data-ng-bind="productline.id", data-ng-click="productctrl.setProductLine(productline.id)")
+											div.product__itemimage(data-ng-click="productctrl.setProductLine(productline.id)")
+												img(src="http://placehold.it/50x50")
+											div.product__itemtext(data-ng-bind="productline.id")
+
+									p Vælg variant
 
 									div.product__productlist
 										div.product__item(data-ng-repeat="product in productctrl.shownProducts", data-ng-class="{'product__item--active': product.id === productctrl.activeProduct}")
-											div.product__inner(data-ng-bind="product.id", data-ng-click="productctrl.setProduct(product.id)")
+											div.product__itemimage(data-ng-click="productctrl.setProduct(product.id)")
+												img(src="http://placehold.it/50x50")
+											div.product__itemtext(data-ng-bind="product.id")
+
 
 									form.form(name="productForm")
-										input.form__input(type="text", placeholder="Beskrivende navn")
-										select.form__select
-											option 1
-											option 2
-											option 3
-											option 4
-											option 5
-										input.form__input(type="text", placeholder="Bredde")
-										input.form__input(type="text", placeholder="Længde")
 
-										input(type="checkbox")
-										span Med sprosser?
-										a + Tilføj
+										div.grid.grid--24.grid--spacebottom
+											div.grid.grid--6.grid--spaceright
+												input.form__input(type="text", placeholder="Beskrivende navn")
+											div.grid.grid--6.grid--spaceright
+												input.form__input(type="text", placeholder="Bredde i mm.")
+											div.grid.grid--12
 
-						div.step_bodyinner
-							div.step__headline 3. Tilføj vinduer & døre (Upload)
-								form.form(name="productFilesForm")
-									input.form__file(type="file")
-									input.form__file(type="file")
-									input.form__file(type="file")
+										div.grid.grid--24
+											div.grid.grid--6.grid--spaceright
+												select.form__select
+													option Vælg antal
+													option 1
+													option 2
+													option 3
+													option 4
+													option 5
+											div.grid.grid--6.grid--spaceright
+												input.form__input(type="text", placeholder="Højde i mm.")
+											div.grid.grid--6.grid--spaceright
+												select.form__select
+													option Vælg sprosser
+													option Med
+													option Uden
+											div.grid.grid--6
+												div.button.button--stretch
+													div.button__text Gem element
+													div.button__icon
+														span.icon.icon--chevronright.icon--square
+
+						div.step_bodyinner(data-ng-show="productctrl.states.showupload")
+							div.headline.headline--large
+								div.headline__line1 Upload
+								div.headline__line2 filer
+							form.form(name="productFilesForm")
+								input.form__file(type="file")
+								input.form__file(type="file")
+								input.form__file(type="file")
 
 
 
@@ -132,7 +201,9 @@ block append content
 				div.container__content
 					div.container__inner
 						div.step_bodyinner
-							div.step__headline 4. Udfyld personlige oplysninger.
+							div.headline.headline--large
+								div.headline__line1 Udfyld
+								div.headline__line2 personlige oplysninger
 							form.form(name="contactform")
 								input.form__input(type="text" placeholder="Navn")
 								input.form__input(type="text" placeholder="Adresse")
@@ -153,13 +224,32 @@ block append content
 
 
 						div.step_bodyinner
-							div.step__headline 4. Kvittering
+							div.headline.headline--large
+								div.headline__line2 Kvittering
 
 
 
 	div.container.tilbudswizard__footer
 		div.container__content
 			div.container__inner
-				div.grid.grid--8 1
-				div.grid.grid--8 2
-				div.grid.grid--8 3
+				div.grid.grid--8
+					div.headline.headline--footer
+						div.headline__line1 398
+						div.headline__line2
+							| Forhandlere fordelt
+							br
+							| over hele landet
+				div.grid.grid--8
+					div.headline.headline--footer
+						div.headline__line1 350.000
+						div.headline__line2
+							| Kvalitets vinduer til
+							br
+							| danske hjem årligt
+				div.grid.grid--8
+					div.headline.headline--footer
+						div.headline__line1 97%
+						div.headline__line2
+							| Tilfreshed blandt
+							br
+							| danske kunder

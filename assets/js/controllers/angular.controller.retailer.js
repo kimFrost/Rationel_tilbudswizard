@@ -12,8 +12,8 @@
 			options: {},
 			retailers: [],
 			states: {
-				showsearch: true,
-				showresults: false
+				showsearch: false,
+				showresults: true
 			},
 			css: {}
 		};

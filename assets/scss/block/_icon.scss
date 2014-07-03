@@ -1,6 +1,4 @@
 
-$__blockName: 'icon';
-
 $__iconMap: (
 	glass: "\f000",
 	circle: "\f111",
@@ -24,41 +22,20 @@ $__iconMap: (
 	circleONotch: "\f1ce"
 );
 
-
-
-/*CACTUSPILOT:OPEN*/
-
-/*MODULE:OPEN*//*
-#{$__blockName}
-*//*MODULE:CLOSE*/
-
-/*DESC:OPEN*//*
-This is a "#{$__blockName}" module.
-*//*DESC:CLOSE*/
-
-/*MARKUP:OPEN*//*
-<div class="#{$__blockName}">
-	<div class="icon__item"></div>
-</div>
-*//*MARKUP:CLOSE*/
-
-/*CACTUSPILOT:CLOSE*/
-
-
 @font-face {
 	font-family: 'FontAwesome';
-	src: url('../fonts/fontawesome-webfont.eot?');
-	src: url('../fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
-	url('../fonts/fontawesome-webfont.woff?') format('woff'),
-	url('../fonts/fontawesome-webfont.ttf?') format('truetype'),
-	url('../fonts/fontawesome-webfont.svg?#fontawesomeregular') format('svg');
+	src: url('../font/fontawesome-webfont.eot?');
+	src: url('../font/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../font/fontawesome-webfont.woff?') format('woff'),
+	url('../font/fontawesome-webfont.ttf?') format('truetype'),
+	url('../font/fontawesome-webfont.svg?#fontawesomeregular') format('svg');
 	//src: url('#{$fa-font-path}/FontAwesome.otf') format('opentype'); // used when developing fonts
 	font-weight: normal;
 	font-style: normal;
 }
 
 
-@include block($__blockName) {
+.icon {
 	@at-root [class^="icon"] {
 		display: inline-block;
 		font-family: FontAwesome;
@@ -73,14 +50,24 @@ This is a "#{$__blockName}" module.
 			font-weight: inherit;
 		}
 	}
-	@each $key, $content in $__iconMap {
-		@include m($key) {
-			&:before {
-				display: block;
-				content: $content;
-			}
+
+}
+@each $key, $content in $__iconMap {
+	.icon--#{$key} {
+		&:before {
+			display: block;
+			content: $content;
 		}
 	}
 }
 
-
+.icon--square {
+	background-color: $color_white;
+	color: $color_deepsea;
+	width: 18px;
+	text-align: center;
+	line-height: 20px;
+	font-size: 12px;
+	height: 18px;
+	margin-right: 5px;
+}

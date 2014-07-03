@@ -8,12 +8,14 @@
 		// Data
 		$scope.tilbudswizardctrl = {
 			options: {},
-			activeStep: 0,
+			activeStep: 2,
 			activeRetailer: "",
 			activeCategory: "",
 			basket: {
 				items: [],
-				states: {}
+				states: {
+					showbasket: false
+				}
 			},
 			steps:[
 				{

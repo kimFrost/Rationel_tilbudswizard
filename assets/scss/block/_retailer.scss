@@ -7,7 +7,12 @@
 	width: 100%;
 }
 
-.retailer {
+.retailer,
+.retailer__card,
+.retailer__searchbox,
+.retailer__cardtitle,
+.retailer__paragraph,
+.retailer__resultsbox {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -15,26 +20,28 @@
 
 .retailer__card {
 	display: block;
-	color: $color_textblack;
-	background-color: $color_white;
+	color: $color_textwhite;
+	background-color: $color_deepsea;
 	padding: 10px;
 	width: 100%;
 	cursor: pointer;
+	min-height: 100%;
 	&:hover {
-		background-color: darken($color_white, 5%);
+		background-color: lighten($color_deepsea, 10%);
 	}
 	&:active {
-		background-color: darken($color_white, 10%);
+		background-color: darken($color_deepsea, 10%);
 	}
 }
+
 .retailer__card--selected {
-	background-color: $color_black;
+	background-color: $color_coralsea;
 	color: $color_textwhite;
 	&:hover {
-		background-color: lighten($color_black, 10%);
+		background-color: lighten($color_coralsea, 10%);
 	}
 	&:active {
-		background-color: lighten($color_black, 5%);
+		background-color: darken($color_coralsea, 10%);
 	}
 }
 
@@ -48,4 +55,27 @@
 	width: 100%;
 	margin: 0;
 	margin-bottom: 5px;
+}
+
+.retailer__searchbox {
+	width: 100%;
+	padding: 25px;
+	margin: 0 auto 20px auto;
+	background-color: $color_almostwhite;
+	@include mediaQueries(desktop) {
+		width: 40%;
+	}
+	@include mediaQueries(tablet) {
+		width: 70%;
+	}
+}
+
+.retailer__resultsbox {
+	width: 100%;
+	padding: 25px;
+	margin: 0 auto 20px auto;
+	background-color: $color_almostwhite;
+	@include mediaQueries(desktop) {
+		width: 80%;
+	}
 }

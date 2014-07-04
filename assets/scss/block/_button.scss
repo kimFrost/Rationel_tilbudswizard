@@ -1,0 +1,54 @@
+
+
+
+
+$__buttonHeight: 30px;
+
+
+.button {
+	@include fontSize(alpha, 0);
+	@include noUserSelect();
+	color: $color_textwhite;
+	background-color: $color_deepsea;
+	height: $__btnHeight;
+	line-height: $__btnHeight;
+	border: none;
+	cursor: pointer;
+	display: inline-block;
+	text-transform: uppercase;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	outline: 0;
+	padding: 0 5px;
+	text-transform: uppercase;
+	position: relative;
+	&:hover {
+		background-color: lighten($color_deepsea, 10%);
+	}
+	&:active {
+		background-color: darken($color_deepsea, 10%);
+	}
+}
+
+.button,
+.button__icon,
+.button__text {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.button--stretch {
+	width: 100%;
+	display: block;
+}
+
+.button__icon {
+	display: inline-block;
+}
+
+.button__text {
+	display: inline-block;
+}
+

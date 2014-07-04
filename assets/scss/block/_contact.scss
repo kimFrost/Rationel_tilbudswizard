@@ -7,8 +7,33 @@
 	width: 100%;
 }
 
-.contact {
+.contact,
+.contact__infobox,
+.contact__succesbox {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
+}
+
+
+
+.contact__infobox {
+	width: 100%;
+	padding: 25px;
+	margin: 0 auto 20px auto;
+	background-color: $color_almostwhite;
+	@include mediaQueries(desktop) {
+		width: 70%;
+	}
+}
+
+.contact__succesbox {
+	width: 100%;
+	padding: 25px;
+	margin: 0 auto 20px auto;
+	background-color: $color_deepsea;
+	color: $color_textwhite;
+	@include mediaQueries(desktop) {
+		width: 40%;
+	}
 }

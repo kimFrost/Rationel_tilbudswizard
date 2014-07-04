@@ -43,6 +43,7 @@ $stepHeaderHeight: 62px;
 	}
 	.step__body {
 		max-height: 1000px;
+		//max-height: 1500px;
 	}
 	&:nth-child(1) {
 
@@ -62,6 +63,16 @@ $stepHeaderHeight: 62px;
 		background-image: url(/img/graphic/map_background_large.jpg);
 	}
 }
+.step--product {
+	.step__body {
+
+	}
+}
+.step--active.step--product {
+	.step__body {
+		max-height: 1800px;
+	}
+}
 
 .step__header {
 	@include transition(all 700ms ease);
@@ -76,7 +87,7 @@ $stepHeaderHeight: 62px;
 }
 
 .step__body {
-	@include transition(max-height 700ms ease);
+	@include transition(max-height 800ms ease);
 	width: 100%;
 	max-height: 0px;
 	overflow: hidden;
@@ -86,6 +97,9 @@ $stepHeaderHeight: 62px;
 	background-size: cover;
 	background-color: $color_white;
 	color: $color_textblack;
+	// TEMP v
+	background-color: $color_lightgrey;
+	//background-image: url(http://placehold.it/800x500);
 }
 
 .step_bodyinner {

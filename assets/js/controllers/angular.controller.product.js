@@ -18,6 +18,7 @@
 			activeProduct: "",
 			states: {
 				showproductview: true,
+				showproducts: false,
 				showupload: false
 			},
 			css: {}
@@ -68,6 +69,8 @@
 		$scope.productctrl.setProductLine = function(id) {
 			if (id != undefined) {
 				$scope.productctrl.activeProductLine = id;
+				$scope.productctrl.activeProduct = "";
+				$scope.productctrl.states.showproducts = true;
 				$scope.productctrl.updateProducts();
 			}
 		};
@@ -92,6 +95,11 @@
 				id += chars.charAt(Math.floor(Math.random() * chars.length));
 			}
 			return id;
+		};
+		$scope.productctrl.addItemToBasket = function() {
+			$scope.$emit('TilbudswizardCtrlAddItemToBasket', {
+				id: $scope.productctrl.activeProduct
+			});
 		};
 
 		//Tilbudswizard.log("ProductCtrl");

@@ -1,7 +1,7 @@
 
 
 $productItemSpacing: 20px;
-$productItemPerLine: 6;
+
 
 .product {
 	display: block;
@@ -17,6 +17,7 @@ $productItemPerLine: 6;
 .product__item,
 .product__categorybox,
 .product__productsbox,
+.product__uploadbox,
 .product__cardimage,
 .product__itemimage,
 .product__itemtext {
@@ -53,10 +54,15 @@ $productItemPerLine: 6;
 
 .product__main {
 	display: block;
-	background-color: red;
+	background-color: $color_almostwhite;
 	position: relative;
 	overflow: hidden;
 	padding: 15px;
+	&:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
 }
 
 .product__aside {
@@ -64,7 +70,7 @@ $productItemPerLine: 6;
 	float: none;
 	padding: 15px;
 	min-height: 1px;
-	background-color: red;
+	background-color: $color_almostwhite;
 	margin-bottom: 10px;
 	&:after {
 		content: "";
@@ -106,6 +112,16 @@ $productItemPerLine: 6;
 	}
 }
 
+.product__uploadbox {
+	width: 100%;
+	padding: 25px;
+	margin: 0 auto 20px auto;
+	background-color: $color_almostwhite;
+	@include mediaQueries(desktop) {
+		width: 70%;
+	}
+}
+
 .product__cardimage {
 	display: block;
 	margin: 0;
@@ -117,7 +133,6 @@ $productItemPerLine: 6;
 		width: 100%;
 	}
 }
-
 
 
 .product__productlist {
@@ -138,13 +153,19 @@ $productItemPerLine: 6;
 	position: relative;
 	display: block;
 	float: left;
-	width: 100% / $productItemPerLine;
+	width: (100% / 4);
 	padding-right: $productItemSpacing;
 	padding-bottom: $productItemSpacing;
 	min-height: 1px;
 	z-index: 1;
 	list-style-image: none;
 	cursor: pointer;
+	@include mediaQueries(desktop) {
+		width: (100% / 6);
+	}
+	@include mediaQueries(tablet) {
+		width: (100% / 4);
+	}
 	&:after {
 		content: "";
 		display: block;

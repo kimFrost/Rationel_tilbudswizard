@@ -11,15 +11,25 @@
 		$scope.retailerctrl = {
 			options: {},
 			retailers: [],
+			searchvalue: "",
 			states: {
-				showsearch: false,
-				showresults: true
+				showsearch: true,
+				showresults: false
 			},
 			css: {}
 		};
 
 		/* Scope Functions
 		 ===========================*/
+		$scope.retailerctrl.search = function() {
+			Tilbudswizard.log($scope.retailerctrl.searchvalue);
+
+			$scope.retailerctrl.getRetailers();
+			$scope.retailerctrl.states.showresults = true;
+			$scope.retailerctrl.states.showsearch = false;
+			//$scope.$emit('TilbudswizardCtrlTogglePending', 'show');
+
+		};
 		$scope.retailerctrl.getRetailers = function() {
 
 			// Create 3 random retailers (TEMP)
@@ -59,7 +69,7 @@
 
 		// User Events
 
-		$scope.retailerctrl.getRetailers();
+
 
 	}]);
 

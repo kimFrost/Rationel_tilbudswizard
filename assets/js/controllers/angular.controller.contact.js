@@ -11,7 +11,9 @@
 		$scope.contactctrl = {
 			options: {},
 			states: {
-
+				showcontactform: true,
+				showsucces: false,
+				showchoice: false
 			},
 			css: {}
 		};

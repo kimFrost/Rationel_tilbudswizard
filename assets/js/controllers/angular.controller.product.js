@@ -14,12 +14,19 @@
 			productlines: [],
 			products: [],
 			shownProducts: [],
-			activeProductLine: "",
-			activeProduct: "",
+			activeProductLine: {
+				id: "",
+				name: ""
+			},
+			activeProduct: {
+				id: "",
+				name: ""
+			},
 			states: {
 				showproductview: true,
 				showproducts: false,
-				showupload: false
+				showupload: false,
+				showchoice: false
 			},
 			css: {}
 		};
@@ -66,24 +73,27 @@
 				}
 			}
 		};
-		$scope.productctrl.setProductLine = function(id) {
+		$scope.productctrl.setProductLine = function(id, name) {
 			if (id != undefined) {
-				$scope.productctrl.activeProductLine = id;
-				$scope.productctrl.activeProduct = "";
+				name = (name === undefined) ? "" : name;
+				$scope.productctrl.activeProductLine.id = id;
+				$scope.productctrl.activeProductLine.name = name;
+				$scope.productctrl.activeProduct.id = "";
+				$scope.productctrl.activeProduct.name = "";
 				$scope.productctrl.states.showproducts = true;
 				$scope.productctrl.updateProducts();
 			}
 		};
 		$scope.productctrl.setProduct = function(id) {
 			if (id != undefined) {
-				$scope.productctrl.activeProduct = id;
+				$scope.productctrl.activeProduct.id = id;
 			}
 		};
 		$scope.productctrl.updateProducts = function(id) {
 			$scope.productctrl.shownProducts = [];
 			for (var i=0;i<$scope.productctrl.products.length;i++) {
 				var product = $scope.productctrl.products[i];
-				if (product.productline === $scope.productctrl.activeProductLine) {
+				if (product.productline === $scope.productctrl.activeProductLine.id) {
 					$scope.productctrl.shownProducts.push(product);
 				}
 			}
@@ -98,7 +108,7 @@
 		};
 		$scope.productctrl.addItemToBasket = function() {
 			$scope.$emit('TilbudswizardCtrlAddItemToBasket', {
-				id: $scope.productctrl.activeProduct
+				id: $scope.productctrl.activeProduct.id
 			});
 		};
 

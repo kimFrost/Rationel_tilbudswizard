@@ -2,7 +2,7 @@
 
 
 
-$__buttonHeight: 30px;
+$__buttonHeight: 32px;
 
 
 .button {
@@ -10,8 +10,8 @@ $__buttonHeight: 30px;
 	@include noUserSelect();
 	color: $color_textwhite;
 	background-color: $color_deepsea;
-	height: $__btnHeight;
-	line-height: $__btnHeight;
+	height: $__buttonHeight;
+	line-height: $__buttonHeight;
 	border: none;
 	cursor: pointer;
 	display: inline-block;
@@ -20,9 +20,11 @@ $__buttonHeight: 30px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	outline: 0;
-	padding: 0 5px;
+	padding: 0 7px;
 	text-transform: uppercase;
 	position: relative;
+	background-repeat: no-repeat;
+	background-position: right center;
 	&:hover {
 		background-color: lighten($color_deepsea, 10%);
 	}
@@ -39,9 +41,41 @@ $__buttonHeight: 30px;
 	-webkit-box-sizing: border-box;
 }
 
+.button--dynamic {
+	height: auto;
+	line-height: normal;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	white-space: normal;
+}
+
+
 .button--stretch {
 	width: 100%;
 	display: block;
+}
+
+.button--arrow {
+	text-align: left;
+	background-image: url(/img/graphic/button_arrow.png);
+	padding-right: 30px;
+}
+
+.button--arrowleft {
+	text-align: right;
+	background-image: url(/img/graphic/button_arrow_left.png);
+	background-position: left center;
+	padding-left: 30px;
+}
+
+.button--coral {
+	background-color: $color_coralsea;
+	&:hover {
+		background-color: lighten($color_coralsea, 10%);
+	}
+	&:active {
+		background-color: darken($color_coralsea, 10%);
+	}
 }
 
 .button__icon {

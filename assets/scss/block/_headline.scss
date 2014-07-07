@@ -12,10 +12,15 @@
 
 .headline,
 .headline__line1,
-.headline__line2 {
+.headline__line2,
+.headline__line3 {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
+}
+
+.headline--nospacebottom {
+	margin-bottom: 0;
 }
 
 .headline--large {
@@ -26,6 +31,9 @@
 	}
 	.headline__line2 {
 		line-height: returnFontSize(theta);
+	}
+	.headline__line3 {
+		line-height: returnFontSize(beta);
 	}
 }
 
@@ -68,5 +76,12 @@
 	display: block;
 	width: 100%;
 	font-family: $font_eurostilleBold;
+}
+.headline__line3 {
+	@include fontSize(alpha, 1.2);
+	//line-height: returnFontSize(beta);
+	display: block;
+	width: 100%;
+	font-family: $font_eurostilleRegular;
 }
 

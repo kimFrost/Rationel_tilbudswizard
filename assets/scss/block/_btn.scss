@@ -50,6 +50,16 @@ $__btnHeight: 30px;
 	}
 }
 
+.btn--coral {
+	background-color: $color_coralsea;
+	&:hover {
+		background-color: lighten($color_coralsea, 10%);
+	}
+	&:active {
+		background-color: darken($color_coralsea, 10%);
+	}
+}
+
 .btn--card {
 	height: auto;
 	line-height: normal;

@@ -1,7 +1,9 @@
 
 
+$formInputMarginBottom: 10px;
 
 .form {
+	@include fontSize(gamma, 0);
 	display: block;
 	width: 100%;
 }
@@ -11,7 +13,8 @@
 .form__textarea,
 .form__select,
 .form__option,
-.form__file {
+.form__file,
+.form__checkbox {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -25,43 +28,59 @@
 	}
 }
 
-.form__input {
+.form__input,
+.form__textarea,
+.form__select,
+.form__option,
+.form__file,
+.form__checkbox {
 	display: block;
-	padding: 5px;
+	padding: 7px;
 	width: 100%;
 	margin: 0;
+	margin-bottom: $formInputMarginBottom;
+	outline: 0;
+	border: 1px solid $color_coldsea;
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.form__input {
+
 }
 
 .form__textarea {
-	display: block;
-	padding: 5px;
-	width: 100%;
-	margin: 0;
+	min-height: 150px;
+	max-height: 400px;
 }
 
 .form__select {
-	display: block;
-	padding: 5px;
-	width: 100%;
-	margin: 0;
+	padding: 6px 7px;
 }
 
 .form__option {
-	display: block;
-	padding: 5px;
-	width: 100%;
+
 }
 
 .form__file {
-	display: block;
-	padding: 5px;
-	width: 100%;
-	margin: 0;
+
 }
 
 .form__btn {
-	display: block;
-	padding: 5px;
-	width: 100%;
-	margin: 0;
+
 }
+
+.form__checkbox {
+	//@include appearance(none);
+	width: auto;
+	display: inline-block;
+	margin-bottom: ($formInputMarginBottom * 1.5);
+	& ~ & {
+		margin-left: 20px;
+	}
+	& + label {
+		display: inline-block;
+	}
+}
+

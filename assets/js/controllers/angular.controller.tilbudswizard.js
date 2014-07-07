@@ -9,7 +9,10 @@
 		$scope.tilbudswizardctrl = {
 			options: {},
 			activeStep: 0,
-			activeRetailer: "",
+			activeRetailer: {
+				id: "",
+				name: ""
+			},
 			activeCategory: "",
 			basket: {
 				items: [],
@@ -70,12 +73,12 @@
 		// Global Retailer functions
 		$scope.tilbudswizardctrl.setRetailer = function(id) {
 			if (id != undefined) {
-				$scope.tilbudswizardctrl.activeRetailer = id;
+				$scope.tilbudswizardctrl.activeRetailer.id = id;
 			}
 		};
 		$scope.tilbudswizardctrl.checkRetailer = function(id) {
 			if (id != undefined) {
-				if (id === $scope.tilbudswizardctrl.activeRetailer) {
+				if (id === $scope.tilbudswizardctrl.activeRetailer.id) {
 					return true;
 				}
 				else {

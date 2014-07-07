@@ -20,7 +20,9 @@ $productItemSpacing: 20px;
 .product__uploadbox,
 .product__cardimage,
 .product__itemimage,
-.product__itemtext {
+.product__itemtext,
+.product__basketitem,
+.product__basketitemclose {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -93,6 +95,38 @@ $productItemSpacing: 20px;
 	}
 }
 
+.product__basketitem {
+	@include fontSize(beta,1);
+	background-color: $color_white;
+	border: 1px solid $color_coldsea;
+	position: relative;
+	padding: 5px;
+	display: block;
+	padding-right: 20px;
+	cursor: pointer;
+	&:hover {
+		background-color: darken($color_white, 10%);
+	}
+	&:active {
+		background-color: darken($color_white, 15%);
+	}
+}
+
+.product__basketitemclose {
+	@include fontSize(beta,0);
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	margin-top: -(#{returnHalfFontSize(beta)});
+	cursor: pointer;
+	//opacity: 0.7;
+	&:hover {
+		//opacity: 1;
+	}
+	&:active {
+		//opacity: 0.8;
+	}
+}
 
 .product__categorybox {
 	width: 100%;

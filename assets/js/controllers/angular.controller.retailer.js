@@ -14,7 +14,8 @@
 			searchvalue: "",
 			states: {
 				showsearch: true,
-				showresults: false
+				showresults: false,
+				showchoice: false
 			},
 			css: {}
 		};

@@ -1,0 +1,36 @@
+
+
+
+.social {
+	display: block;
+	margin-bottom: 20px;
+	@include mediaQueries(desktop) {
+		position: absolute;
+		right: 0px;
+		bottom: 20px;
+		margin-bottom: 0px;
+	}
+}
+
+.social,
+.social__item {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.social__item {
+	display: block;
+	float: left;
+	opacity: 0.7;
+	cursor: pointer;
+	& + & {
+		margin-left: 10px;
+	}
+	&:hover {
+		opacity: 1;
+	}
+	&:active {
+		opacity: 0.8;
+	}
+}

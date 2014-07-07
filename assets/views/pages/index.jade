@@ -21,9 +21,12 @@ block append content
 			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(0)")
 				div.container__content
 					div.container__inner
-						div.headline
+						div.headline(data-ng-hide="retailerctrl.states.showchoice")
 							div.headline__line1 1. Find Rationel
 							div.headline__line2 forhandler
+						div.headline(data-ng-show="retailerctrl.states.showchoice")
+							div.headline__line1 Du har valgt
+							div.headline__line2 {{tilbudswizardctrl.activeRetailer.name}}
 
 			div.step__body
 				div.container__content
@@ -38,7 +41,7 @@ block append content
 									div.grid.grid--14.grid--spaceright
 										input.form__input(placeholder="Indtast dit postnr", data-ng-model="retailerctrl.searchvalue")
 									div.grid.grid--4
-										input.btn.btn--stretch(type="submit", value="søg", data-ng-click="retailerctrl.search()")
+										input.button.button--stretch(type="submit", value="søg", data-ng-click="retailerctrl.search()")
 									div.grid.grid--3
 
 						div.step_bodyinner(data-ng-show="retailerctrl.states.showresults")
@@ -70,9 +73,14 @@ block append content
 			div.step__header(data-ng-click="tilbudswizardctrl.switchstep(1)")
 				div.container__content
 					div.container__inner
-						div.headline
+						div.headline(data-ng-hide="productctrl.states.showchoice")
 							div.headline__line1 2. Vælg din
 							div.headline__line2 byggestil
+						div.headline(data-ng-show="productctrl.states.showchoice")
+							div.headline__line1 Du har valgt
+							div.headline__line2 {{productctrl.activeRetailer.name}}
+
+
 			div.step__body
 				div.container__content
 					div.container__inner
@@ -113,21 +121,22 @@ block append content
 							div.product__productsbox
 
 								div.product__aside(data-ng-hide="tilbudswizardctrl.basket.states.showbasket")
+									div.headline.headline--large
+										div.headline__line1 Eller..
 									div.product__asideitem
-										a.button.button--stretch(data-ng-click="productctrl.states.showproductview = false; productctrl.states.showupload = true;")
-											div.button__text Upload filer
-											div.button__icon
-												span.icon.icon--chevronright.icon--square
+										a.button.button--stretch.button--arrow.button--dynamic(data-ng-click="productctrl.states.showproductview = false; productctrl.states.showupload = true;")
+											div.headlin.headline--nospacebottom
+												div.headline__line2 Upload filer
+												div.headline__line3 Har du tegninger eller tidligere modtaget et tilbud?
 
 								div.product__aside(data-ng-show="tilbudswizardctrl.basket.states.showbasket")
+									div.headline
+										div.headline__line2 Indkøbskurv
 									div.product__asideitem(data-ng-repeat="item in tilbudswizardctrl.basket.items")
-										p(data-ng-bind="item.id")
-										p(data-ng-click="tilbudswizardctrl.removeItemFromBasket(item.id)") x
+										div.product__basketitem(data-ng-click="tilbudswizardctrl.removeItemFromBasket(item.id)") {{item.id}}
+											div.product__basketitemclose x
 									div.product__asideitem
-										a.button.button--stretch
-											div.button__text Videre
-											div.button__icon
-												span.icon.icon--chevronright.icon--square
+										a.button.button--stretch.button--arrow Videre
 
 									div.product__asideitem(data-ng-repeat="basketitem in tilbudswizardctrl.basket.items", data-ng-bind="basketitem.title")
 
@@ -137,17 +146,16 @@ block append content
 										div.headline__line2 du ønsker et tilbud på
 
 									div.product__productlist
-										div.product__item(data-ng-repeat="productline in productctrl.productlines", data-ng-class="{'product__item--active': productline.id === productctrl.activeProductLine}")
+										div.product__item(data-ng-repeat="productline in productctrl.productlines", data-ng-class="{'product__item--active': productline.id === productctrl.activeProductLine.id}")
 											div.product__itemimage(data-ng-click="productctrl.setProductLine(productline.id)")
 												img(src="http://placehold.it/50x50")
 											div.product__itemtext(data-ng-bind="productline.id")
 
 
 									div(data-ng-show="productctrl.states.showproducts")
-										p Vælg variant
-
+										p VÆLG VARIANT
 										div.product__productlist
-											div.product__item(data-ng-repeat="product in productctrl.shownProducts", data-ng-class="{'product__item--active': product.id === productctrl.activeProduct}")
+											div.product__item(data-ng-repeat="product in productctrl.shownProducts", data-ng-class="{'product__item--active': product.id === productctrl.activeProduct.id}")
 												div.product__itemimage(data-ng-click="productctrl.setProduct(product.id)")
 													img(src="http://placehold.it/50x50")
 												div.product__itemtext(data-ng-bind="product.id")
@@ -178,10 +186,7 @@ block append content
 														option Med
 														option Uden
 												div.grid.grid--6
-													div.button.button--stretch(data-ng-click="productctrl.addItemToBasket()")
-														div.button__text Gem element
-														div.button__icon
-															span.icon.icon--chevronright.icon--square
+													div.button.button--stretch.button--arrow.button--coral(data-ng-click="productctrl.addItemToBasket()") Gem element
 
 						div.step_bodyinner(data-ng-show="productctrl.states.showupload")
 							div.product__uploadbox
@@ -189,9 +194,26 @@ block append content
 									div.headline__line1 Upload
 									div.headline__line2 filer
 								form.form(name="productFilesForm")
-									input.form__file(type="file")
-									input.form__file(type="file")
-									input.form__file(type="file")
+
+									div.grid.grid--8.grid--spacebottom.grid--spaceright
+										input.form__file(type="file")
+									div.grid.grid--8.grid--spacebottom.grid--spaceright
+										input.form__file(type="file")
+									div.grid.grid--8.grid--spacebottom
+										input.form__file(type="file")
+
+									div.grid.grid--8.grid--spacebottom.grid--spaceright
+										input.form__file(type="file")
+									div.grid.grid--8.grid--spacebottom.grid--spaceright
+										input.form__file(type="file")
+									div.grid.grid--8.grid--spacebottom
+										input.form__file(type="file")
+
+									div.grid.grid--8.grid--spaceright
+										a.button.button--stretch.button--arrowleft(data-ng-click="productctrl.states.showproductview = true; productctrl.states.showupload = false;") Tilbage
+									div.grid.grid--8.grid--spaceright
+									div.grid.grid--8
+										a.button.button--stretch.button--arrow Videre
 
 
 
@@ -205,33 +227,33 @@ block append content
 			div.step__body
 				div.container__content
 					div.container__inner
-						div.step_bodyinner
+
+						div.step_bodyinner(data-ng-show="contactctrl.states.showcontactform")
 							div.contact__infobox
 								div.headline.headline--large
 									div.headline__line1 Udfyld
 									div.headline__line2 personlige oplysninger
 								form.form(name="contactform")
-									input.form__input(type="text" placeholder="Navn")
-									input.form__input(type="text" placeholder="Adresse")
-									input.form__input(type="text" placeholder="Postnummer")
-									input.form__input(type="text" placeholder="By")
-									input.form__input(type="email" placeholder="E-mail")
-									input.form__input(type="number" placeholder="Telefonnr")
 
-									p Hvilket materiale ønsker du tilbud på?
+									div.grid.grid--24
+										p Hvilket materiale ønsker du tilbud på?
+										input.form__checkbox(type="checkbox")
+										label Træ ?
+										input.form__checkbox(type="checkbox")
+										label Træ/alu ?
+									div.grid.grid--14.grid--spaceright
+										input.form__input(type="text" placeholder="Navn")
+										input.form__input(type="text" placeholder="Adresse")
+										input.form__input(type="text" placeholder="Postnummer")
+										input.form__input(type="text" placeholder="By")
+										input.form__input(type="email" placeholder="E-mail")
+										input.form__input(type="number" placeholder="Telefonnr")
+									div.grid.grid--10.grid--spaceleft
+										textarea.form__textarea(placeholder="Øvrige oplysninger")
+										input.button.button--stretch.button--arrow.button--coral(type="submit", value="Bestil tilbud")
 
-									input(type="checkbox")
-									label Træ ?
-									input(type="checkbox")
-									label Træ/alu ?
 
-									textarea.form__textarea(placeholder="Øvrige oplysninger")
-
-									input.btn(type="submit", value="Bestil tilbud")
-
-
-
-						div.step_bodyinner
+						div.step_bodyinner(data-ng-show="contactctrl.states.showsucces")
 							div.contact__succesbox
 								div.headline.headline--large
 									div.headline__line2 Kvittering
@@ -239,7 +261,25 @@ block append content
 										p Tak for din interesse i vores produkter.
 										p Vi udarbejder et tilbud til dig, og sender til den valgte Rationel forhandler indenfor 24 timer på hverdage.
 										p Du vil modtage en email og sms når tilbuddet ligger klar til afhentning.
-										a.btn Tilmeld til nyhedsbrev
+
+										div.grid.grid--10
+											div.btn.btn--coral.btn--card.btn--leftbottomarrow
+												div.headline.headline--card
+													div.headline__line2 Tilmeld til
+													div.headline__line2 Nyhedsbrev
+												div.btn__icon
+													span.icon.icon--chevronright.icon--square
+													span KLIK HER
+							div.social
+								a.social__item
+									img(src="http://placehold.it/50x50")
+								a.social__item
+									img(src="http://placehold.it/50x50")
+								a.social__item
+									img(src="http://placehold.it/50x50")
+								a.social__item
+									img(src="http://placehold.it/50x50")
+
 
 
 	div.container.tilbudswizard__footer

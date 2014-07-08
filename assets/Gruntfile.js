@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 					'js/libs/modernizr/modernizr.custom.21372.js',
 					'js/tilbudswizard.js'
 				],
-				dest: '../scripts/head.js'
+				dest: '../scripts/tilbudswizard_head.js'
 			},
 			tilbudswizard: {
 				src: [
@@ -39,7 +39,7 @@ module.exports = function (grunt) {
 			},
 			head: {
 				src: '<%= concat.head.dest %>',
-				dest: '../scripts/head.min.js'
+				dest: '../scripts/tilbudswizard_head.min.js'
 			},
 			tilbudswizard: {
 				src: '<%= concat.tilbudswizard.dest %>',

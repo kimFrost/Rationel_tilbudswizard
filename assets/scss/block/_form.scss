@@ -47,7 +47,12 @@ $formInputMarginBottom: 10px;
 }
 
 .form__input {
+	&.ng-dirty.ng-invalid {
+		border-color: red;
+	}
+	&.ng-dirty.ng-valid {
 
+	}
 }
 
 .form__textarea {
@@ -57,6 +62,12 @@ $formInputMarginBottom: 10px;
 
 .form__select {
 	padding: 6px 7px;
+	&.ng-dirty.ng-invalid {
+		border-color: red;
+	}
+	&.ng-dirty.ng-valid {
+
+	}
 }
 
 .form__option {
@@ -84,3 +95,20 @@ $formInputMarginBottom: 10px;
 	}
 }
 
+/*
+// Angular Validation Classes
+&.ng-pristine.ng-invalid {
+	//background-color: yellow;
+}
+&.ng-ng-pristine.ng-valid {
+	//background-color: #ff69b4;
+}
+&.ng-dirty.ng-invalid {
+	border-color: $color_geramontRed;
+	//background-color: $color_geramontRed;
+}
+&.ng-dirty.ng-valid {
+	border-color: greenyellow;
+	//background-color: greenyellow;
+}
+*/

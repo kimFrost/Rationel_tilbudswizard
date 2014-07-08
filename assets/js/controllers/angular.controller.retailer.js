@@ -37,7 +37,7 @@
 			$scope.retailerctrl.retailers = [];
 			for (var i=0;i<3;i++) {
 				var retailer = {
-					title: "test",
+					name: "test",
 					id: $scope.retailerctrl.returnRandomId(),
 					adress: "road 69",
 					city: "Townname",

@@ -26,7 +26,8 @@
 				showproductview: true,
 				showproducts: false,
 				showupload: false,
-				showchoice: false
+				showchoice: false,
+				validated: false
 			},
 			css: {}
 		};
@@ -38,7 +39,7 @@
 			$scope.productctrl.categories = [];
 			for (var i=0;i<2;i++) {
 				var category = {
-					title: "test",
+					name: "test",
 					id: $scope.productctrl.returnRandomId()
 				}
 				$scope.productctrl.categories.push(category);
@@ -49,7 +50,7 @@
 			$scope.productctrl.productlines = [];
 			for (var i=0;i<4;i++) {
 				var productline = {
-					title: "test",
+					name: "test",
 					img: "",
 					id: $scope.productctrl.returnRandomId()
 				}
@@ -64,7 +65,7 @@
 				var numOfProducts = Math.random()*6+1;
 				for (var ii=0;ii<numOfProducts;ii++) {
 					var product = {
-						title: "test",
+						name: "test",
 						img: "",
 						productline: productline.id,
 						id: $scope.productctrl.returnRandomId()
@@ -84,9 +85,11 @@
 				$scope.productctrl.updateProducts();
 			}
 		};
-		$scope.productctrl.setProduct = function(id) {
+		$scope.productctrl.setProduct = function(id, name) {
 			if (id != undefined) {
+				name = (name === undefined) ? "No product name" : name;
 				$scope.productctrl.activeProduct.id = id;
+				$scope.productctrl.activeProduct.name = name;
 			}
 		};
 		$scope.productctrl.updateProducts = function(id) {
@@ -107,9 +110,31 @@
 			return id;
 		};
 		$scope.productctrl.addItemToBasket = function() {
-			$scope.$emit('TilbudswizardCtrlAddItemToBasket', {
-				id: $scope.productctrl.activeProduct.id
-			});
+			var valid = $scope.productctrl.validateForm();
+			if ($scope.productform.formdata != undefined && valid) {
+				$scope.$emit('TilbudswizardCtrlAddItemToBasket', {
+					productid: $scope.productctrl.activeProduct.id,
+					productname: $scope.productctrl.activeProduct.name,
+					name: $scope.productform.formdata.name,
+					width: $scope.productform.formdata.width,
+					height: $scope.productform.formdata.height,
+					quantity: $scope.productform.formdata.quantity,
+					mullions: $scope.productform.formdata.mullions
+				});
+			}
+		};
+		$scope.productctrl.validateForm = function() {
+			if (!$scope.productform.$invalid) {
+				return true;
+			}
+			else {
+				$scope.productctrl.states.validated = false;
+				for (var i=0;i<$scope.productform.$error.required.length;i++) {
+					var required = $scope.productform.$error.required[i];
+					required.$setViewValue(required.$viewValue);
+				}
+				return false;
+			}
 		};
 
 		//Tilbudswizard.log("ProductCtrl");

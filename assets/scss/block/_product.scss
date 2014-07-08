@@ -225,6 +225,7 @@ $productItemSpacing: 20px;
 	width: 100%;
 	background-color: $color_white;
 	border: 3px solid transparent;
+	margin-bottom: 3px;
 	& > img {
 		display: block;
 		margin: 0;
@@ -233,6 +234,8 @@ $productItemSpacing: 20px;
 }
 
 .product__itemtext {
+	@include fontSize(beta, 1.2);
+	text-align: center;
 	display: block;
 	width: 100%;
 }

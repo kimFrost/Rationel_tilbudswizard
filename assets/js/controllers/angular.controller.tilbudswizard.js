@@ -23,14 +23,14 @@
 			steps:[
 				{
 					id: 0,
-					title: "Step 1",
+					name: "Step 1",
 					states: {
 						valid: false
 					}
 				},
 				{
 					id: 1,
-					title: "Step 2",
+					name: "Step 2",
 					require: [0],
 					states: {
 						valid: false
@@ -38,13 +38,14 @@
 				},
 				{
 					id: 2,
-					title: "Step 3",
+					name: "Step 3",
 					require: [0, 1],
 					states: {
 						valid: false
 					}
 				}
 			],
+			generatedIds: [],
 			states: {
 				pending: false
 			},
@@ -120,12 +121,19 @@
 
 		// Basket functions
 		$scope.tilbudswizardctrl.addItemToBasket = function(item) {
-			if (item != undefined && item.id != undefined) {
-				var found = false;
-				for (var i=0;i<$scope.tilbudswizardctrl.basket.items.length;i++) {
-					var basketitem = $scope.tilbudswizardctrl.basket.items[i];
-					if (basketitem.id === item.id) found = true;
+			if (item != undefined) {
+				item.productname = (item.productname === undefined) ? "No product name" : item.productname;
+				item.productid = (item.productid === undefined) ? "No product id" : item.productid;
+				item.name = (item.name === undefined) ? item.productname : item.name;
+				if (item.name.length < 1) {
+					item.name = item.productname;
 				}
+				item.id = $scope.tilbudswizardctrl.returnRandomId();
+				var found = false;
+				//for (var i=0;i<$scope.tilbudswizardctrl.basket.items.length;i++) {
+					//var basketitem = $scope.tilbudswizardctrl.basket.items[i];
+					//if (basketitem.id === item.id) found = true;
+				//}
 				if (!found) {
 					$scope.tilbudswizardctrl.basket.items.push(item);
 					$scope.tilbudswizardctrl.validateBasket();
@@ -154,6 +162,25 @@
 			}
 			else {
 				$scope.tilbudswizardctrl.basket.states.showbasket = false;
+			}
+		};
+		$scope.tilbudswizardctrl.returnRandomId = function() {
+			var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			var id = "";
+			for (var i=0;i<5;i++) {
+				id += chars.charAt(Math.floor(Math.random() * chars.length));
+			}
+			var found = false;
+			for (var i=0;i<$scope.tilbudswizardctrl.generatedIds.length;i++) {
+				var storedId = $scope.tilbudswizardctrl.generatedIds[i];
+				if (id === storedId) found = true;
+			}
+			if (!found) {
+				$scope.tilbudswizardctrl.generatedIds.push(id);
+				return id;
+			}
+			else {
+				return $scope.tilbudswizardctrl.returnRandomId();
 			}
 		};
 

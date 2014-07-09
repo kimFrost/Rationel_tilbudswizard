@@ -9,6 +9,9 @@
 		$scope.tilbudswizardctrl = {
 			options: {},
 			activeStep: 0,
+			files: [
+				{},{},{},{},{},{}
+			],
 			activeRetailer: {
 				id: "",
 				name: ""
@@ -24,8 +27,10 @@
 				{
 					id: 0,
 					name: "Step 1",
+					require: [],
 					states: {
-						valid: false
+						valid: false,
+						locked: false
 					}
 				},
 				{
@@ -33,15 +38,26 @@
 					name: "Step 2",
 					require: [0],
 					states: {
-						valid: false
+						valid: false,
+						locked: true
 					}
 				},
 				{
 					id: 2,
 					name: "Step 3",
-					require: [0, 1],
+					//require: [0, 1],
 					states: {
-						valid: false
+						valid: false,
+						locked: false
+					}
+				},
+				{
+					id: 3,
+					name: "Step 4",
+					require: [0, 1, 2],
+					states: {
+						valid: false,
+						locked: true
 					}
 				}
 			],
@@ -54,6 +70,20 @@
 
 		/* Scope Functions
 		 ===========================*/
+
+		// Step functions
+		$scope.tilbudswizardctrl.checklock = function(id) {
+			var step = $scope.tilbudswizardctrl.steps[id];
+			if (step != undefined) {
+				return step.states.locked;
+			}
+		};
+		$scope.tilbudswizardctrl.checkvalid = function(id) {
+			var step = $scope.tilbudswizardctrl.steps[id];
+			if (step != undefined) {
+				return step.states.valid;
+			}
+		};
 		$scope.tilbudswizardctrl.checkstep = function(id) {
 			if (id != undefined) {
 				if (id === $scope.tilbudswizardctrl.activeStep) {
@@ -67,7 +97,34 @@
 		$scope.tilbudswizardctrl.switchstep = function(id) {
 			//Tilbudswizard.log(id);
 			if (id != undefined) {
-				$scope.tilbudswizardctrl.activeStep = id;
+				$scope.tilbudswizardctrl.updateLocks(); // Update lock states
+				var locked = $scope.tilbudswizardctrl.checklock(id);
+				//Tilbudswizard.log("locked");
+				//Tilbudswizard.log(id);
+				//Tilbudswizard.log(locked);
+				if (!locked) {
+					$scope.tilbudswizardctrl.activeStep = id;
+				}
+			}
+		};
+		$scope.tilbudswizardctrl.updateLocks = function() {
+			var steps = $scope.tilbudswizardctrl.steps;
+			for (var i=0;i<steps.length;i++) {
+				var step = steps[i];
+				var anyNotValid = false;
+				if (step.require != undefined && step.require.length > 0) {
+					// Find step required step and check their valid state
+					for (var ii=0;ii<step.require.length; ii++) {
+						var requiredStep = step.require[ii];
+						if (!steps[requiredStep].states.valid) {
+							anyNotValid = true;
+						}
+					}
+					step.states.locked = anyNotValid;
+				}
+				else {
+					step.states.locked = anyNotValid;
+				}
 			}
 		};
 
@@ -75,6 +132,9 @@
 		$scope.tilbudswizardctrl.setRetailer = function(id) {
 			if (id != undefined) {
 				$scope.tilbudswizardctrl.activeRetailer.id = id;
+				// Validate curent step and activate next step
+				$scope.tilbudswizardctrl.steps[0].states.valid = true;
+				$scope.tilbudswizardctrl.switchstep(1);
 			}
 		};
 		$scope.tilbudswizardctrl.checkRetailer = function(id) {
@@ -106,6 +166,8 @@
 		$scope.tilbudswizardctrl.setCategory = function(id) {
 			if (id != undefined) {
 				$scope.tilbudswizardctrl.activeCategory = id;
+				$scope.tilbudswizardctrl.steps[1].states.valid = true;
+				$scope.tilbudswizardctrl.switchstep(2);
 			}
 		};
 		$scope.tilbudswizardctrl.checkCategory = function(id) {
@@ -117,6 +179,24 @@
 					return false;
 				}
 			}
+		};
+
+		// Global Contact functions
+		$scope.tilbudswizardctrl.filesChanged = function(file, index) {
+			$scope.tilbudswizardctrl.files[index] = file;
+			/*
+			var name = files[0].name;
+			for (var i=0;i<$scope.tilbudswizardctrl.files.length;i++) {
+				var file = $scope.tilbudswizardctrl.files[i][0];
+				if (file.name === name) {
+					$scope.tilbudswizardctrl.files.splice(i,1);
+					Tilbudswizard.log("splice");
+				}
+			}
+			$scope.tilbudswizardctrl.files.push(files)
+			*/
+			//$scope.tilbudswizardctrl.files = elm.files;
+			$scope.$apply();
 		};
 
 		// Basket functions
@@ -159,10 +239,13 @@
 			var numOfItems = $scope.tilbudswizardctrl.basket.items.length;
 			if (numOfItems > 0) {
 				$scope.tilbudswizardctrl.basket.states.showbasket = true;
+				$scope.tilbudswizardctrl.steps[2].states.valid = true;
 			}
 			else {
 				$scope.tilbudswizardctrl.basket.states.showbasket = false;
+				$scope.tilbudswizardctrl.steps[2].states.valid = false;
 			}
+			$scope.tilbudswizardctrl.updateLocks(); // Update locks
 		};
 		$scope.tilbudswizardctrl.returnRandomId = function() {
 			var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

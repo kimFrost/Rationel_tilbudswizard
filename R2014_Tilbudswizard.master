@@ -1,0 +1,440 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/umbraco/masterpages/default.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="ContentPlaceHolderDefault" runat="server">
+
+	<!DOCTYPE html>
+		<html data-ng-app="tilbudswizard" lang="da">
+			<head>
+				<title>Rationel Tilbudswizard</title>
+				<meta charset="UTF-8">
+				<!--meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1 user-scalable=no")-->
+				<meta name="viewport" content="width=device-width, initial-scale=1">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+				<link rel="stylesheet" href="/css/tilbudswizard.css">
+				<!-- Main app js-->
+				<script src="/scripts/tilbudswizard_head.js"></script>
+                <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+				<!-- Fonts-->
+				<link type="text/css" rel="stylesheet" href="http://fast.fonts.com/cssapi/ba002805-f090-46ee-884b-859604968980.css">	
+			</head>
+	 		<body>
+				<section data-ng-controller="TilbudswizardCtrl" class="tilbudswizard">
+					
+                    <!-- Pending (BEGIN) -->
+                    <div data-ng-class="{'tilbudswizard__pending--show':tilbudswizardctrl.states.pending}" class="tilbudswizard__pending">
+                        <div class="icon icon--circleONotch"></div>
+                    </div>
+                    <!-- Pending (END) -->
+
+                    <!-- Header (BEGIN) -->
+                    <div class="container tilbudswizard__header">
+                        <div class="container__content">
+                            <div class="container__inner">
+                                <a class="tilbudswizard__logo">
+                                    <img src="/img/tilbudswizard/graphic/logo.png" alt="Rationel" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Header (END) -->
+
+                    <div class="tilbudswizard__body">
+                        <!-- Retailer (BEGIN) -->
+                           <div data-ng-controller="RetailerCtrl" data-ng-class="{'step--active': tilbudswizardctrl.checkstep(0), 'step--locked':tilbudswizardctrl.checklock(0)}" class="container step retailer step--map">
+                               <div data-ng-click="tilbudswizardctrl.switchstep(0)" class="step__header">
+                                <div class="step__locked">
+                                    <div class="icon icon--lock"></div>
+                                </div>
+                                <div class="step__unlocked">
+                                    <div class="icon icon--unlockAlt"></div>
+                                </div>
+                                <div class="container__content">
+                                  <div class="container__inner">
+                                    <div data-ng-hide="retailerctrl.states.showchoice" class="headline">
+                                      <div class="headline__line1">1. Find Rationel</div>
+                                      <div class="headline__line2">forhandler</div>
+                                    </div>
+                                    <div data-ng-show="retailerctrl.states.showchoice" class="headline">
+                                      <div class="headline__line1">Du har valgt</div>
+                                      <div class="headline__line2">{{tilbudswizardctrl.activeRetailer.name}}</div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="step__body">
+                                <div class="container__content">
+                                  <div class="container__inner">
+                                    <div data-ng-show="retailerctrl.states.showsearch" class="step_bodyinner">
+                                      <div class="retailer__searchbox">
+                                        <div class="headline headline--large">
+                                          <div class="headline__line1">Find nærmeste</div>
+                                          <div class="headline__line2">Forhandler</div>
+                                        </div>
+                                        <form name="searchform" class="form form--center" data-ng-submit="retailerctrl.search()" novalidate>
+                                          <div class="grid grid--3"></div> 
+                                          <div class="grid grid--14 grid--spaceright"> 
+                                            <input placeholder="Indtast dit postnr" required type="number" data-ng-minlength="4" data-ng-milength="4" data-ng-model="retailerctrl.searchvalue" class="form__input">
+                                          </div>
+                                          <div class="grid grid--4">
+                                            <input type="submit" value="søg" class="button button--stretch">
+                                          </div>
+                                          <div class="grid grid--3"></div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                    <div data-ng-show="retailerctrl.states.showresults" class="step_bodyinner">
+                                      <div class="retailer__resultsbox">
+                                        <div class="headline headline--large">
+                                          <div class="headline__line1">Hvor ønsker du at</div>
+                                          <div class="headline__line2">Afhente dit tilbud?</div>
+                                        </div>
+                                        <div class="cluster cluster--height100">
+                                          <div class="cluster__list">
+                                            <div data-ng-repeat="retailer in retailerctrl.retailers" class="cluster__item">
+                                              <div class="cluster__inner">
+                                                <!--div.retailer__card(data-ng-click="tilbudswizardctrl.setRetailer(retailer.id)", data-ng-class="{'retailer__card--selected': tilbudswizardctrl.checkRetailer(retailer.id)}")-->
+                                                <div data-ng-click="tilbudswizardctrl.setRetailer(retailer.id)" data-ng-class="{'btn--selected': tilbudswizardctrl.checkRetailer(retailer.id)}" class="btn btn--card btn--leftbottomarrow">
+                                                  <div class="headline headline--card">
+                                                    <div data-ng-bind="retailer.name" class="headline__line1"></div>
+                                                    <div data-ng-bind="retailer.adress" class="headline__line2"></div>
+                                                    <div class="headline__line2">{{retailer.zip}} {{retailer.city}}</div>
+                                                  </div>
+                                                  <div class="btn__icon"><span class="icon icon--chevronright icon--square"></span><span>KLIK HER</span></div>
+                                                  <!--h2.retailer__cardtitle(data-ng-bind="retailer.name")-->
+                                                  <!--p.retailer__paragraph(data-ng-bind="retailer.adress")-->
+                                                  <!--p.retailer__paragraph {{retailer.zip}} {{retailer.city}}-->
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        <!-- Retailer (END) -->
+                        <!-- Products Type (BEGIN) -->
+                        <div data-ng-controller="ProductCtrl" data-ng-class="{'step--active': tilbudswizardctrl.checkstep(1), 'step--locked':tilbudswizardctrl.checklock(1)}" class="container product step">
+                          <div data-ng-click="tilbudswizardctrl.switchstep(1)" class="step__header">
+                            <div class="step__locked">
+                              <div class="icon icon--lock"></div>
+                            </div>
+                            <div class="step__unlocked">
+                              <div class="icon icon--unlockAlt"></div>
+                            </div>
+                            <div class="container__content">
+                              <div class="container__inner">
+                                <div data-ng-hide="productctrl.states.showchoice" class="headline">
+                                  <div class="headline__line1">2. Vælg din</div>
+                                  <div class="headline__line2">byggestil</div>
+                                </div>
+                                <div data-ng-show="productctrl.states.showchoice" class="headline">
+                                  <div class="headline__line1">Du har valgt</div>
+                                  <div class="headline__line2">{{productctrl.activeRetailer.name}}</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="step__body">
+                            <div class="container__content">
+                              <div class="container__inner">
+                                <div class="step_bodyinner">
+                                  <div class="product__categorybox">
+                                    <div class="headline headline--large">
+                                      <div class="headline__line1">Hvilken type bolig skal dine</div>
+                                      <div class="headline__line2">Vinduer og døre passe til?</div>
+                                    </div>
+                                    <div class="cluster cluster--line2 cluster--height200 cluster--autoHeight">
+                                      <div class="cluster__list">
+                                        <div data-ng-repeat="category in productctrl.categories" class="cluster__item cluster__item--1x1">
+                                          <div class="cluster__inner">
+                                            <div data-ng-click="tilbudswizardctrl.setCategory(category.id)" data-ng-class="{'product__card--selected': tilbudswizardctrl.checkCategory(category.id)}" class="product__card">
+                                              <div class="product__cardimage"><img src="http://placehold.it/350x150">
+                                                <div data-ng-class="{'btn--selected': tilbudswizardctrl.checkCategory(category.id)}" class="btn btn--card btn--righttoparrow btn--productcard">
+                                                  <div class="headline headline--card">
+                                                    <div data-ng-bind="category.name" class="headline__line1"></div>
+                                                    <div data-ng-bind="category.name" class="headline__line2"></div>
+                                                  </div>
+                                                  <div class="btn__icon"><span class="icon icon--chevronright icon--square"></span></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Products Type (END) -->
+                        <!-- Products (BEGIN) -->
+                        <div data-ng-controller="ProductCtrl" data-ng-class="{'step--active': tilbudswizardctrl.checkstep(2), 'step--locked':tilbudswizardctrl.checklock(2)}" class="container product step step--product">
+                          <div data-ng-click="tilbudswizardctrl.switchstep(2)" class="step__header">
+                            <div class="step__locked">
+                              <div class="icon icon--lock"></div>
+                            </div>
+                            <div class="step__unlocked">
+                              <div class="icon icon--unlockAlt"></div>
+                            </div>
+                            <div class="container__content">
+                              <div class="container__inner">
+                                <div class="headline">
+                                  <div class="headline__line1">3. Tilføj</div>
+                                  <div class="headline__line2">vinduer & døre</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="step__body">
+                            <div class="container__content">
+                              <div class="container__inner">
+                                <div data-ng-show="productctrl.states.showproductview" class="step_bodyinner">
+                                  <div class="product__productsbox">
+                                    <div data-ng-hide="tilbudswizardctrl.basket.states.showbasket" class="product__aside">
+                                      <div class="headline headline--large">
+                                        <div class="headline__line1">Eller..</div>
+                                      </div>
+                                      <div class="product__asideitem"><a data-ng-click="productctrl.states.showproductview = false; productctrl.states.showupload = true;" class="button button--stretch button--arrow button--dynamic">
+                                          <div class="headlin headline--nospacebottom">
+                                            <div class="headline__line2">Upload filer</div>
+                                            <div class="headline__line3">Har du tegninger eller tidligere modtaget et tilbud?</div>
+                                          </div></a></div>
+                                    </div>
+                                    <div data-ng-show="tilbudswizardctrl.basket.states.showbasket" class="product__aside">
+                                      <div class="headline">
+                                        <div class="headline__line2">Indkøbskurv</div>
+                                      </div>
+                                      <div data-ng-repeat="item in tilbudswizardctrl.basket.items" class="product__asideitem">
+                                        <div data-ng-click="tilbudswizardctrl.removeItemFromBasket(item.id)" class="product__basketitem">{{item.name}}
+                                          <div class="product__basketitemclose">x</div>
+                                        </div>
+                                      </div>
+                                      <div class="product__asideitem">
+                                          <a data-ng-click="tilbudswizardctrl.switchstep(3)" class="button button--stretch button--arrow">Videre</a>
+                                      </div>
+                                    </div>
+                                    <div class="product__main">
+                                      <div class="headline headline--large">
+                                        <div class="headline__line1">Vælg de vinduer og døre</div>
+                                        <div class="headline__line2">du ønsker et tilbud på</div>
+                                      </div>
+                                      <div class="product__productlist">
+                                        <div data-ng-repeat="productline in productctrl.productlines" data-ng-class="{'product__item--active': productline.id === productctrl.activeProductLine.id}" class="product__item">
+                                          <div data-ng-click="productctrl.setProductLine(productline.id)" class="product__itemimage"><img src="http://placehold.it/50x50"></div>
+                                          <div data-ng-bind="productline.id" class="product__itemtext"></div>
+                                        </div>
+                                      </div>
+                                      <div data-ng-show="productctrl.states.showproducts">
+                                        <p>VÆLG VARIANT</p>
+                                        <div class="product__productlist">
+                                          <div data-ng-repeat="product in productctrl.shownProducts" data-ng-class="{'product__item--active': product.id === productctrl.activeProduct.id}" class="product__item">
+                                            <div data-ng-click="productctrl.setProduct(product.id, product.name)" class="product__itemimage"><img src="http://placehold.it/50x50"></div>
+                                            <div data-ng-bind="product.id" class="product__itemtext"></div>
+                                          </div>
+                                        </div>
+                                        <form name="productform" data-ng-submit="productctrl.addItemToBasket()" novalidate class="form">
+                                          <div class="grid grid--24 grid--spacebottom">
+                                            <div class="grid grid--6 grid--spaceright">
+                                              <input type="text" required placeholder="Beskrivende navn" data-ng-model="productform.formdata.name" class="form__input">
+                                            </div>
+                                            <div class="grid grid--6 grid--spaceright">
+                                              <input type="number" required placeholder="Bredde i mm." data-ng-model="productform.formdata.width" class="form__input">
+                                            </div>
+                                            <div class="grid grid--12"></div>
+                                          </div>
+                                          <div class="grid grid--24">
+                                            <div class="grid grid--6 grid--spaceright">
+                                              <select data-ng-model="productform.formdata.quantity" required class="form__select">
+                                                <option value="" selected="selected">Vælg antal</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                              </select>
+                                            </div>
+                                            <div class="grid grid--6 grid--spaceright">
+                                              <input type="number" placeholder="Højde i mm." required data-ng-model="productform.formdata.height" class="form__input">
+                                            </div>
+                                            <div class="grid grid--6 grid--spaceright">
+                                              <select data-ng-model="productform.formdata.mullions" required class="form__select">
+                                                <option value="" selected="selected">Vælg sprosser</option>
+                                                <option value="true">Med</option>
+                                                <option value="false">Uden</option>
+                                              </select>
+                                            </div>
+                                            <div class="grid grid--6">
+                                              <input type="submit" value="Gem element" class="button button--stretch button--arrow button--coral">
+                                            </div>
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div data-ng-show="productctrl.states.showupload" class="step_bodyinner">
+                                  <div class="product__uploadbox">
+                                    <div class="headline headline--large">
+                                      <div class="headline__line1">Upload</div>
+                                      <div class="headline__line2">filer</div>
+                                    </div>
+                                    <form name="productFilesForm" class="form">
+                                      <div class="grid grid--8 grid--spacebottom grid--spaceright">
+                                        <input type="file" name="file1" class="form__file" onchange="angular.element(this).scope().tilbudswizardctrl.filesChanged(this.files, 1)"> 
+                                      </div>
+                                      <div class="grid grid--8 grid--spacebottom grid--spaceright">
+                                        <input type="file" name="file2" class="form__file" onchange="angular.element(this).scope().tilbudswizardctrl.filesChanged(this.files, 2)"> 
+                                      </div>
+                                      <div class="grid grid--8 grid--spacebottom">
+                                        <input type="file" name="file3" class="form__file" onchange="angular.element(this).scope().tilbudswizardctrl.filesChanged(this.files, 3)"> 
+                                      </div>
+                                      <div class="grid grid--8 grid--spacebottom grid--spaceright">
+                                        <input type="file" name="file4" class="form__file" onchange="angular.element(this).scope().tilbudswizardctrl.filesChanged(this.files, 4)"> 
+                                      </div>
+                                      <div class="grid grid--8 grid--spacebottom grid--spaceright">
+                                        <input type="file" name="file5" class="form__file" onchange="angular.element(this).scope().tilbudswizardctrl.filesChanged(this.files, 5)"> 
+                                      </div>
+                                      <div class="grid grid--8 grid--spacebottom">
+                                        <input type="file" name="file6" class="form__file" onchange="angular.element(this).scope().tilbudswizardctrl.filesChanged(this.files, 6)"> 
+                                      </div>
+                                      <div class="grid grid--24">{{tilbudswizardctrl.files}}</div>
+                                      <div class="grid grid--8 grid--spaceright"><a data-ng-click="productctrl.states.showproductview = true; productctrl.states.showupload = false;" class="button button--stretch button--arrowleft">Tilbage</a></div>
+                                      <div class="grid grid--8 grid--spaceright"></div>
+                                      <div class="grid grid--8">
+                                          <a data-ng-click="tilbudswizardctrl.switchstep(3)" class="button button--stretch button--arrow">Videre</a>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Products (END) -->
+                        <!-- Contact (BEGIN) -->
+                        <div data-ng-controller="ContactCtrl" data-ng-class="{'step--active': tilbudswizardctrl.checkstep(3), 'step--locked':tilbudswizardctrl.checklock(3)}" class="container contact step">
+                          <div data-ng-click="tilbudswizardctrl.switchstep(3)" class="step__header">
+                            <div class="step__locked">
+                              <div class="icon icon--lock"></div>
+                            </div>
+                            <div class="step__unlocked">
+                              <div class="icon icon--unlockAlt"></div>
+                            </div>
+                            <div class="container__content">
+                              <div class="container__inner">
+                                <div class="headline">
+                                  <div class="headline__line1">4. Personlige</div>
+                                  <div class="headline__line2">oplysninger</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="step__body">
+                            <div class="container__content">
+                              <div class="container__inner">
+                                <div data-ng-show="contactctrl.states.showcontactform" class="step_bodyinner">
+                                  <div class="contact__infobox">
+                                    <div class="headline headline--large">
+                                      <div class="headline__line1">Udfyld</div>
+                                      <div class="headline__line2">personlige oplysninger</div>
+                                    </div>
+                                    <form name="contactform" class="form">
+                                      <div class="grid grid--24">
+                                        <p>Hvilket materiale ønsker du tilbud på?</p>
+                                        <input type="radio" name="material" class="form__checkbox">
+                                        <label>Træ ?</label>
+                                        <input type="radio" name="material" class="form__checkbox">
+                                        <label>Træ/alu ?</label>
+                                      </div>
+                                      <div class="grid grid--14 grid--spaceright">
+                                        <input type="text" placeholder="Navn" class="form__input">
+                                        <input type="text" placeholder="Adresse" class="form__input">
+                                        <input type="text" placeholder="Postnummer" class="form__input">
+                                        <input type="text" placeholder="By" class="form__input">
+                                        <input type="email" placeholder="E-mail" class="form__input">
+                                        <input type="number" placeholder="Telefonnr" class="form__input">
+                                      </div>
+                                      <div class="grid grid--10 grid--spaceleft">
+                                        <textarea placeholder="Øvrige oplysninger" class="form__textarea"></textarea>
+                                        <input type="submit" value="Bestil tilbud" class="button button--stretch button--arrow button--coral">
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                                <div data-ng-show="contactctrl.states.showsucces" class="step_bodyinner">
+                                  <div class="contact__succesbox">
+                                    <div class="headline headline--large">
+                                      <div class="headline__line2">Kvittering</div>
+                                      <div class="rte">
+                                        <p>Tak for din interesse i vores produkter.</p>
+                                        <p>Vi udarbejder et tilbud til dig, og sender til den valgte Rationel forhandler indenfor 24 timer på hverdage.</p>
+                                        <p>Du vil modtage en email og sms når tilbuddet ligger klar til afhentning.</p>
+                                        <div class="grid grid--10">
+                                          <div class="btn btn--coral btn--card btn--leftbottomarrow">
+                                            <div class="headline headline--card">
+                                              <div class="headline__line2">Tilmeld til</div>
+                                              <div class="headline__line2">Nyhedsbrev</div>
+                                            </div>
+                                            <div class="btn__icon"><span class="icon icon--chevronright icon--square"></span><span>KLIK HER</span></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="social"><a class="social__item"><img src="http://placehold.it/50x50"></a><a class="social__item"><img src="http://placehold.it/50x50"></a><a class="social__item"><img src="http://placehold.it/50x50"></a><a class="social__item"><img src="http://placehold.it/50x50"></a></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Contact (END) -->
+                    </div>
+					
+					<!-- Footer (BEGIN) -->
+					<div class="container tilbudswizard__footer">
+                        <div class="container__content">
+                            <div class="container__inner">
+                                <div class="grid grid--8">
+                                    <div class="headline headline--footer">
+                                        <div class="headline__line1">398</div>
+                                        <div class="headline__line2">Forhandlere fordelt<br>over hele landet</div>
+                                    </div>
+                                </div>
+                                <div class="grid grid--8">
+                                    <div class="headline headline--footer">
+                                        <div class="headline__line1">350.000</div>
+                                        <div class="headline__line2">Kvalitets vinduer til<br>danske hjem årligt</div>
+                                    </div>
+                                </div>
+                                <div class="grid grid--8">
+                                    <div class="headline headline--footer">
+                                        <div class="headline__line1">97%</div>
+                                        <div class="headline__line2">Tilfreshed blandt<br>danske kunder</div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- Footer (END) -->
+					
+				</section>		
+                <script src="/scripts/tilbudswizard.js"></script>
+			</body>
+		</html>
+	
+</asp:Content>

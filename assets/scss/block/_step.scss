@@ -74,11 +74,39 @@ $stepHeaderHeight: 62px;
 	}
 }
 
+.step--locked {
+	.step__locked {
+		display: block;
+	}
+	.step__unlocked {
+		display: none;
+	}
+}
+
+.step__locked {
+	@include fontSize(eta,0);
+	display: none;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	margin-top: -#{returnHalfFontSize(eta)};
+}
+
+.step__unlocked {
+	@include fontSize(eta,0);
+	display: block;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	margin-top: -#{returnHalfFontSize(eta)};
+}
+
 .step__header {
 	@include transition(all 700ms ease);
 	width: 100%;
 	display: block;
 	overflow: hidden;
+	position: relative;
 	height: $stepHeaderHeight;
 	padding: 15px 0;
 	//line-height: $stepHeaderHeight;
